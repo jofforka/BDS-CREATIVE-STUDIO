@@ -27,7 +27,7 @@
   };
   const animate = now => {
     const dt=last?Math.min(now-last,60):0;last=now;
-    if (!paused && !hovered && !focused && !document.hidden && !gallery.querySelector('.portfolio-viewer[open]')) angle+=dt*.00015;
+    if (!paused && !hovered && !focused && !document.hidden && !document.querySelector('.portfolio-viewer[open]')) angle+=dt*.00015;
     position();frame=requestAnimationFrame(animate);
   };
   const setup = () => {
