@@ -40,13 +40,13 @@ const refresh=async()=>{
  const result=await api('contents/'+path+'?ref='+branch);
  sha=result.sha;data=JSON.parse(decode(result.content));render();renderHero();
 };
-const commit=async(change,message)=>{
- if(busy)return;busy=true;$('save').disabled=true;
+const commit=async(change,message,alreadyBusy=false)=>{
+ if(busy&&!alreadyBusy)return;busy=true;$('save').disabled=true;$('hero-save').disabled=true;$('hero-clear').disabled=true;
  try{
   await refresh();change(data);data.updatedAt=new Date().toISOString().slice(0,10);
   await api('contents/'+path,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,content:encode(JSON.stringify(data,null,2)+'\n'),sha,branch})});
   await refresh();reset();msg('Saved to GitHub. The public gallery will update after deployment completes.');
- }catch(error){msg(error.message,true)}finally{busy=false;$('save').disabled=false}
+ }catch(error){msg(error.message,true)}finally{busy=false;$('save').disabled=false;$('hero-save').disabled=false;$('hero-clear').disabled=false}
 };
 const upload=async(file)=>{
  if(file.size>15*1024*1024)throw Error('File exceeds the 15 MB browser upload limit. Compress it or use a hosted HTTPS media URL.');
@@ -70,10 +70,11 @@ $('hero-editor').addEventListener('submit',async event=>{
  let media=$('hero-url').value.trim();const alt=$('hero-alt').value.trim();
  if(!file&&!safeImage(media)){msg('Select a JPG, PNG or WebP image or provide a valid image URL.',true);return}
  if(file&&!['image/jpeg','image/png','image/webp'].includes(file.type)){msg('Main image must be JPG, PNG or WebP.',true);return}
+ busy=true;$('hero-save').disabled=true;$('hero-clear').disabled=true;$('save').disabled=true;
  try{
   if(file){msg('Uploading featured image…');media=await upload(file)}
-  await commit(d=>{d.departmentHeroes=d.departmentHeroes||{};d.departmentHeroes[department]={media,alt};},'Update '+department+' department main image');
- }catch(error){msg(error.message,true)}
+  await commit(d=>{d.departmentHeroes=d.departmentHeroes||{};d.departmentHeroes[department]={media,alt};},'Update '+department+' department main image',true);
+ }catch(error){msg(error.message,true)}finally{busy=false;$('hero-save').disabled=false;$('hero-clear').disabled=false;$('save').disabled=false}
 });
 $('hero-clear').addEventListener('click',async()=>{
  const department=$('hero-department').value;
@@ -92,8 +93,7 @@ $('editor').addEventListener('submit',async event=>{
  try{
   if(file){msg('Uploading media to GitHub…');media=await upload(file)}
   const project={id:id||slug(),department,category:$('category').value.trim(),type,title:$('project-title').value.trim(),description:$('description').value.trim(),alt:$('alt').value.trim(),media,demo:$('demo').checked,published:$('published').checked};
-  busy=false;$('save').disabled=false;
-  await commit(d=>{const index=d.projects.findIndex(p=>p.id===project.id);if(index<0)d.projects.push(project);else d.projects[index]={...d.projects[index],...project}},(id?'Update':'Add')+' BDS portfolio project '+project.id);
+  await commit(d=>{const index=d.projects.findIndex(p=>p.id===project.id);if(index<0)d.projects.push(project);else d.projects[index]={...d.projects[index],...project}},(id?'Update':'Add')+' BDS portfolio project '+project.id,true);
  }catch(error){msg(error.message,true);busy=false;$('save').disabled=false}
 });
 })();
