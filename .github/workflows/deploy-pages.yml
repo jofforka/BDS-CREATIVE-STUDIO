@@ -8,6 +8,7 @@ on:
       - 'film.html'
       - 'sound.html'
       - 'showcase.css'
+      - 'hero-globe.css'
       - 'showcase.js'
       - 'portfolio.js'
       - 'portfolio-admin.html'
@@ -54,6 +55,7 @@ jobs:
           test -s film.html
           test -s sound.html
           test -s showcase.css
+          test -s hero-globe.css
           test -s showcase.js
           test -s portfolio.js
           test -s portfolio-admin.html
@@ -84,7 +86,7 @@ jobs:
         run: |
           mkdir -p public
           cp index.html styles.css cinematic.css cinematic.js premium-ui.css compact-layout.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
-          cp photography.html film.html sound.html showcase.css showcase.js showcase-data.js portfolio.js orbit-gallery.js portfolio-admin.html portfolio-admin.js portfolio-admin.css public/
+          cp photography.html film.html sound.html showcase.css hero-globe.css showcase.js showcase-data.js portfolio.js orbit-gallery.js portfolio-admin.html portfolio-admin.js portfolio-admin.css public/
           mkdir -p public/content
           cp content/portfolio.json public/content/
           cp -R assets public/
