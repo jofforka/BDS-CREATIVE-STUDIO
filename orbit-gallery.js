@@ -13,7 +13,7 @@
   const position = () => {
     if (!stage || !cards.length) return;
     const width=stage.clientWidth, height=stage.clientHeight;
-    const radiusX=Math.min(width*.35,420), radiusY=Math.min(height*.39,245);
+    const radiusX=Math.min(width*.32,340), radiusY=Math.min(height*.32,175);
     const n=cards.length;
     // Fibonacci sphere: even distribution over the entire globe, not a flat ring.
     const goldenAngle=Math.PI*(3-Math.sqrt(5));
