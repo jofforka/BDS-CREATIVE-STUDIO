@@ -42,3 +42,11 @@ The example above is **a template, not a real BDS project**. Don't publish it as
 6. Verify published content and external social links in a browser.
 
 The current site is a **file-managed portfolio**. It is not yet an authenticated CMS/admin dashboard. Do not place private media or API secrets in this public repository.
+
+## Demo content currently enabled
+
+The sample portfolio includes **three photography samples, three film samples (including a playable sample video), and three sound samples (including playable sample audio)**. Every sample has `demo: true`, and the public interface labels them **SAMPLE — NOT BDS WORK**. These are third-party demonstration media links; their availability and licensing should be rechecked before commercial use.
+
+To replace a sample: upload approved media to `assets/portfolio/`, change its `media` path and project metadata, remove `demo: true`, and retain `published: true` only after permission and QA. When all samples are replaced, set `demoMode: false`. Social media links are still null and must be filled with official verified URLs.
+
+**No admin upload interface exists yet**. The current replacement process is GitHub file editing, not a browser-based client upload form. For a true client CMS, add authenticated storage, upload validation, moderation and a protected admin dashboard in a later release.

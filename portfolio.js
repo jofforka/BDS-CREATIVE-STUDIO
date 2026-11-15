@@ -33,13 +33,16 @@
   const displayProject = project => {
     viewerContent.replaceChildren();
     const media=mediaFor(project);if(media)viewerContent.append(media);
-    viewerContent.append(make('h2','',project.title));
+    if(project.demo===true)viewerContent.append(make('p','viewer-demo-label','SAMPLE MEDIA — NOT BDS WORK'));viewerContent.append(make('h2','',project.title));
     if(project.description)viewerContent.append(make('p','',project.description));
     const url=safeExternal(project.sourceUrl);
     if(url){const link=make('a','source-link','View original publication ↗');link.href=url;link.target='_blank';link.rel='noopener noreferrer';viewerContent.append(link);}
     viewer.showModal();
   };
   const render = content => {
+    const demoProjects=Array.isArray(content?.projects)?content.projects.filter(p=>p?.demo===true && p.published===true && p.department===department):[];
+    if(demoProjects.length){const banner=make('div','demo-disclosure');banner.setAttribute('role','note');banner.textContent='DEMONSTRATION PORTFOLIO — The media below is sample content, not BDS client work. All samples will be replaced with approved BDS projects.';section.querySelector('.intro')?.after(banner);}
+
     if(!content || !Array.isArray(content.projects))return;
     const projects=content.projects.filter(p=>p && p.published===true && p.department===department && typeof p.title==='string' && p.title.length>0 && allowedTypes[department].includes(p.type) && safeMedia(p.media));
     if(projects.length){
@@ -51,7 +54,7 @@
         gallery.replaceChildren();
         projects.filter(p=>category==='All'||p.category===category).forEach(project=>{
           const card=make('button','portfolio-project');card.type='button';card.setAttribute('aria-label','Open '+project.title);
-          const frame=make('div','project-frame');const media=mediaFor(project,true);if(media)frame.append(media);
+          const frame=make('div','project-frame');const media=mediaFor(project,true);if(media)frame.append(media);if(project.demo===true)frame.append(make('span','demo-chip','SAMPLE · NOT BDS WORK'));
           const details=make('div','project-details');details.append(make('span','',project.category||department),make('strong','',project.title),make('span','',''));
           details.lastElementChild.textContent='↗';card.append(frame,details);card.addEventListener('click',()=>displayProject(project));gallery.append(card);
         });
