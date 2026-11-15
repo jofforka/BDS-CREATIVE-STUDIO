@@ -15,6 +15,8 @@ const decode=base64=>new TextDecoder().decode(Uint8Array.from(atob(base64.replac
 const encode=text=>{const bytes=new TextEncoder().encode(text);let str='';for(let i=0;i<bytes.length;i+=8192)str+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(str)};
 const slug=()=>globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
 const cleanUrl=value=>{try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password?u.href:null}catch{return null}};
+const safeImage=value=>typeof value==='string' && (/^assets\/portfolio\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp)$/i.test(value) || (cleanUrl(value) && /\.(jpg|jpeg|png|webp)(\?|$)/i.test(value)));
+const renderHero=()=>{const hero=data.departmentHeroes?.[$('hero-department').value]||{};$('hero-url').value=hero.media||'';$('hero-alt').value=hero.alt||'';$('hero-file').value='';};
 const reset=()=>{$('editor').reset();$('project-id').value='';$('media-url').value='';$('published').checked=true;$('save').textContent='Save project'};
 const render=()=>{
  const list=$('projects');list.replaceChildren();
@@ -36,7 +38,7 @@ const render=()=>{
 };
 const refresh=async()=>{
  const result=await api('contents/'+path+'?ref='+branch);
- sha=result.sha;data=JSON.parse(decode(result.content));render();
+ sha=result.sha;data=JSON.parse(decode(result.content));render();renderHero();
 };
 const commit=async(change,message)=>{
  if(busy)return;busy=true;$('save').disabled=true;
@@ -61,6 +63,23 @@ $('connect').addEventListener('submit',async event=>{
  try{await refresh();$('workspace').hidden=false;$('connect').hidden=true;msg('Connected. Your GitHub token is held in memory only.')}catch(error){token='';msg('Connection failed: '+error.message,true)}
 });
 $('reset').onclick=reset;
+$('hero-department').addEventListener('change',renderHero);
+$('hero-editor').addEventListener('submit',async event=>{
+ event.preventDefault();if(busy)return;
+ const department=$('hero-department').value,file=$('hero-file').files[0];
+ let media=$('hero-url').value.trim();const alt=$('hero-alt').value.trim();
+ if(!file&&!safeImage(media)){msg('Select a JPG, PNG or WebP image or provide a valid image URL.',true);return}
+ if(file&&!['image/jpeg','image/png','image/webp'].includes(file.type)){msg('Main image must be JPG, PNG or WebP.',true);return}
+ try{
+  if(file){msg('Uploading featured image…');media=await upload(file)}
+  await commit(d=>{d.departmentHeroes=d.departmentHeroes||{};d.departmentHeroes[department]={media,alt};},'Update '+department+' department main image');
+ }catch(error){msg(error.message,true)}
+});
+$('hero-clear').addEventListener('click',async()=>{
+ const department=$('hero-department').value;
+ if(!confirm('Clear the custom main image for '+department+'? The default hero image will be used.'))return;
+ await commit(d=>{d.departmentHeroes=d.departmentHeroes||{};delete d.departmentHeroes[department]},'Clear '+department+' department main image');
+});
 $('editor').addEventListener('submit',async event=>{
  event.preventDefault();if(busy)return;
  const id=$('project-id').value,existing=data.projects.find(p=>p.id===id);
