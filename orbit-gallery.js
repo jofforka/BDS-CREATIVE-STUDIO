@@ -4,7 +4,7 @@
   if (!gallery) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   let stage = null, controls = null, angle = 0, last = 0, frame = 0, paused = reduce.matches;
-  let cards = [], holding = false;
+  let cards = [], holding = false, visible = true, focused = false, dirty = true;
   const makeButton = (label, text) => {
     const button = document.createElement('button');
     button.type = 'button'; button.className = 'orbit-control';
@@ -12,6 +12,7 @@
   };
   const position = () => {
     if (!stage || !cards.length) return;
+    dirty=false;
     const width=stage.clientWidth, height=stage.clientHeight;
     const radiusX=Math.min(width*.32,340), radiusY=Math.min(height*.32,175);
     const n=cards.length;
@@ -34,35 +35,41 @@
   };
   const animate = now => {
     const dt=last?Math.min(now-last,60):0;last=now;
-    if (!paused && !holding && !document.hidden && !document.querySelector('.portfolio-viewer[open]')) angle+=dt*.00015;
-    position();frame=requestAnimationFrame(animate);
+    const moving=!paused&&!holding&&!focused&&visible&&!document.hidden&&!document.querySelector('.portfolio-viewer[open]');
+    if(moving)angle+=dt*.00015;
+    if(moving||dirty)position();
+    frame=requestAnimationFrame(animate);
   };
   const setup = () => {
     const grid=gallery.querySelector('.portfolio-grid');
     if(!grid || grid===stage)return;
     if(stage)stage.classList.remove('orbit-stage');
-    stage=grid;stage.classList.add('orbit-stage');
+    stage=grid;stage.classList.add('orbit-stage');dirty=true;
     if(controls)controls.remove();
     controls=document.createElement('div');controls.className='orbit-toolbar';
     const prev=makeButton('Rotate gallery left','←');
     const pause=makeButton('Pause gallery rotation',paused?'Play rotation':'Pause rotation');
     const next=makeButton('Rotate gallery right','→');
     const status=document.createElement('span');status.textContent='ROTATING 3D GLOBE · SELECT ANY PROJECT TO EXPLORE';
-    prev.addEventListener('click',()=>{angle-=Math.PI/3;position()});
-    next.addEventListener('click',()=>{angle+=Math.PI/3;position()});
+    prev.addEventListener('click',()=>{angle-=Math.PI/3;dirty=true;position()});
+    next.addEventListener('click',()=>{angle+=Math.PI/3;dirty=true;position()});
     pause.addEventListener('click',()=>{paused=!paused;pause.textContent=paused?'Play rotation':'Pause rotation';pause.setAttribute('aria-label',paused?'Play gallery rotation':'Pause gallery rotation')});
     controls.append(prev,pause,next,status);stage.after(controls);
     stage.addEventListener('pointerdown',()=>{holding=true});
+    stage.addEventListener('focusin',()=>{focused=true});
+    stage.addEventListener('focusout',()=>{focused=false});
     window.addEventListener('pointerup',()=>{holding=false});
     window.addEventListener('pointercancel',()=>{holding=false});
     window.addEventListener('blur',()=>{holding=false});
-    const observer=new MutationObserver(()=>{cards=Array.from(stage.children).filter(el=>el.classList.contains('portfolio-project'));position()});
+    const observer=new MutationObserver(()=>{cards=Array.from(stage.children).filter(el=>el.classList.contains('portfolio-project'));dirty=true;position()});
     observer.observe(stage,{childList:true});
     cards=Array.from(stage.children).filter(el=>el.classList.contains('portfolio-project'));position();
   };
   const watch=new MutationObserver(()=>setup());
   watch.observe(gallery,{childList:true,subtree:false});
   reduce.addEventListener?.('change',event=>{paused=event.matches;if(controls){const button=controls.children[1];button.textContent=paused?'Play rotation':'Pause rotation';button.setAttribute('aria-label',paused?'Play gallery rotation':'Pause gallery rotation')}});
-  window.addEventListener('resize',position,{passive:true});
+  const visibilityObserver=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;dirty=true},{threshold:0});
+  visibilityObserver.observe(gallery);
+  window.addEventListener('resize',()=>{dirty=true;position()},{passive:true});
   setup();frame=requestAnimationFrame(animate);
 })();
