@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const gallery = document.querySelector('.showcase-gallery');
+  const gallery = document.querySelector('.showcase-visual');
   if (!gallery) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   let stage = null, controls = null, angle = 0, last = 0, frame = 0, paused = reduce.matches;
