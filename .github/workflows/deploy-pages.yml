@@ -21,6 +21,7 @@ on:
       - 'cinematic.css'
       - 'cinematic.js'
       - 'premium-ui.css'
+      - 'compact-layout.css'
       - 'premium-ui.js'
       - 'premium-booking-admin.css'
       - 'premium-booking-admin.js'
@@ -65,6 +66,7 @@ jobs:
           test -s cinematic.css
           test -s cinematic.js
           test -s premium-ui.css
+          test -s compact-layout.css
           test -s premium-ui.js
           test -s premium-booking-admin.css
           test -s premium-booking-admin.js
@@ -81,7 +83,7 @@ jobs:
       - name: Stage only public assets
         run: |
           mkdir -p public
-          cp index.html styles.css cinematic.css cinematic.js premium-ui.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
+          cp index.html styles.css cinematic.css cinematic.js premium-ui.css compact-layout.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
           cp photography.html film.html sound.html showcase.css showcase.js showcase-data.js portfolio.js orbit-gallery.js portfolio-admin.html portfolio-admin.js portfolio-admin.css public/
           mkdir -p public/content
           cp content/portfolio.json public/content/
