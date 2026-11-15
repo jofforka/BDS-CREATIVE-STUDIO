@@ -10,6 +10,7 @@ on:
       - 'showcase.css'
       - 'showcase.js'
       - 'portfolio.js'
+      - 'orbit-gallery.js'
       - 'content/**'
       - 'showcase-data.js'
       - 'styles.css'
@@ -46,6 +47,7 @@ jobs:
           test -s showcase.css
           test -s showcase.js
           test -s portfolio.js
+          test -s orbit-gallery.js
           test -s content/portfolio.json
           test -s showcase-data.js
           test -s styles.css
@@ -60,7 +62,7 @@ jobs:
         run: |
           mkdir -p public
           cp index.html styles.css cinematic.css cinematic.js booking.html booking.css booking-premium.css booking.js public/
-          cp photography.html film.html sound.html showcase.css showcase.js showcase-data.js portfolio.js public/
+          cp photography.html film.html sound.html showcase.css showcase.js showcase-data.js portfolio.js orbit-gallery.js public/
           mkdir -p public/content
           cp content/portfolio.json public/content/
           cp -R assets public/
