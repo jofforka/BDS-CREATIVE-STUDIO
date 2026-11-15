@@ -1,0 +1,36 @@
+/* Department landing pages: the portfolio globe replaces the decorative hero image. */
+.showcase-hero{min-height:540px;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:stretch}
+.showcase-copy{padding:clamp(35px,4vw,65px) clamp(24px,4vw,65px)}
+.showcase-copy h1{font-size:clamp(46px,5.1vw,80px);margin:20px 0}
+.showcase-copy p{font-size:clamp(15px,1.2vw,17px);line-height:1.65}
+.showcase-visual{min-width:0;min-height:500px}
+.showcase-visual.has-portfolio{display:flex;flex-direction:column;justify-content:center;align-items:stretch;padding:18px 18px 10px;background:#15110d!important}
+.showcase-visual.has-portfolio::after{display:none}
+.showcase-visual.has-portfolio .portfolio-grid.orbit-stage{flex:none;height:clamp(340px,35vw,460px);margin:0;border:1px solid rgba(216,173,103,.3);border-radius:14px}
+.showcase-visual.has-portfolio .orbit-stage .portfolio-project{width:clamp(88px,10vw,140px);height:clamp(135px,15vw,185px)}
+.showcase-visual.has-portfolio .orbit-stage .project-frame{height:calc(100% - 48px)}
+.showcase-visual.has-portfolio .orbit-stage .project-details{min-height:48px;padding:5px 7px}
+.showcase-visual.has-portfolio .orbit-stage .project-details strong{font-size:11px}
+.showcase-visual.has-portfolio .orbit-toolbar{margin:10px 0 5px}
+.showcase-visual.has-portfolio .orbit-toolbar span{font-size:9px;letter-spacing:.06em;margin-left:0}
+.showcase-visual.has-portfolio .filter-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:8px 0}
+.showcase-visual.has-portfolio .filter-tabs button{border:1px solid #665a4d;border-radius:30px;background:#211c17;color:#eee;padding:7px 11px;font-size:11px;cursor:pointer}
+.showcase-visual.has-portfolio .filter-tabs button[aria-pressed=true]{background:#d8ad67;color:#111;border-color:#d8ad67}
+.showcase-visual.has-portfolio .filter-tabs button:focus-visible{outline:2px solid #f1d4a3;outline-offset:3px}
+.showcase-gallery{padding-top:40px;padding-bottom:45px}
+.showcase-gallery h2{margin:16px 0}
+.showcase-gallery .portfolio-empty[hidden]{display:none}
+.portfolio-viewer{width:min(1100px,96vw);max-height:95dvh}
+.viewer-content img,.viewer-content video{max-height:72dvh;max-width:100%;object-fit:contain}
+@media(max-width:800px){
+.showcase-hero{grid-template-columns:1fr}
+.showcase-copy{padding:34px 22px 30px;grid-row:1}
+.showcase-copy h1{font-size:clamp(44px,10vw,67px)}
+.showcase-visual{grid-row:2;min-height:300px}
+.showcase-visual.has-portfolio{padding:12px}
+.showcase-visual.has-portfolio .portfolio-grid.orbit-stage{height:clamp(320px,70vw,420px)}
+.showcase-visual.has-portfolio .orbit-stage .portfolio-project{width:clamp(92px,24vw,128px);height:165px}
+.showcase-visual.has-portfolio .orbit-stage .project-frame{height:117px}
+.showcase-visual.has-portfolio .orbit-stage .project-details{min-height:48px}
+.showcase-visual.has-portfolio .orbit-toolbar span{width:100%;text-align:center}
+}
