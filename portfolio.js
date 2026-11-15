@@ -12,6 +12,7 @@
     try {const url = new URL(value);return url.protocol === 'https:' && url.username === '' && url.password === '' ? url.href : null;} catch {return null;}
   };
   const make = (tag, className, text) => {const el=document.createElement(tag);if(className)el.className=className;if(text)el.textContent=text;return el;};
+  let lastTrigger=null;
   const viewer = document.createElement('dialog');
   viewer.className = 'portfolio-viewer';
   viewer.setAttribute('aria-label','Project media viewer');
@@ -19,7 +20,7 @@
   const viewerContent = make('div','viewer-content');
   viewer.append(close,viewerContent);
   viewer.addEventListener('click',event=>{if(event.target===viewer)viewer.close()});
-  viewer.addEventListener('close',()=>viewerContent.replaceChildren());
+  viewer.addEventListener('close',()=>{viewerContent.replaceChildren();lastTrigger?.focus();});
   document.body.append(viewer);
   const mediaFor = (project,preview=false) => {
     const type=project.type,src=project.media;
@@ -37,7 +38,7 @@
     if(project.description)viewerContent.append(make('p','',project.description));
     const url=safeExternal(project.sourceUrl);
     if(url){const link=make('a','source-link','View original publication ↗');link.href=url;link.target='_blank';link.rel='noopener noreferrer';viewerContent.append(link);}
-    viewer.showModal();
+    lastTrigger=document.activeElement;viewer.showModal();
   };
   const render = content => {
     const demoProjects=Array.isArray(content?.projects)?content.projects.filter(p=>p?.demo===true && p.published===true && p.department===department):[];
