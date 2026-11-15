@@ -4,7 +4,7 @@
 .showcase-copy h1{font-size:clamp(46px,5.1vw,80px);margin:20px 0}
 .showcase-copy p{font-size:clamp(15px,1.2vw,17px);line-height:1.65}
 .showcase-visual{min-width:0;min-height:500px}
-.showcase-visual.has-portfolio{display:flex;flex-direction:column;justify-content:center;align-items:stretch;padding:18px 18px 10px;background:#15110d!important}
+.showcase-visual.has-portfolio{display:flex;flex-direction:column;justify-content:center;align-items:stretch;padding:18px 18px 10px;background-color:#15110d!important}
 .showcase-visual.has-portfolio::after{display:none}
 .showcase-visual.has-portfolio .portfolio-grid.orbit-stage{flex:none;height:clamp(340px,35vw,460px);margin:0;border:1px solid rgba(216,173,103,.3);border-radius:14px}
 .showcase-visual.has-portfolio .orbit-stage .portfolio-project{width:clamp(88px,10vw,140px);height:clamp(135px,15vw,185px)}
@@ -40,5 +40,5 @@
 .showcase-visual.has-portfolio .hero-demo-note{font-size:10px;line-height:1.45;color:#e6c89c;text-align:center;letter-spacing:.065em;margin:8px 0 0}
 
 /* Display the selected main image as a subtle photographic foundation behind the rotating globe. */
-.showcase-visual.has-portfolio.has-custom-hero{background-color:#15110d!important;background-size:cover;background-position:center}
+.showcase-visual.has-portfolio.has-custom-hero{background-color:#15110d;background-size:cover;background-position:center}
 .showcase-visual.has-portfolio.has-custom-hero .portfolio-grid.orbit-stage{background:radial-gradient(circle at center,rgba(22,17,12,.62),rgba(8,7,6,.91) 80%)}
