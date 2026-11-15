@@ -371,6 +371,44 @@
       "media": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&crop=entropy&w=900&q=80",
       "demo": true,
       "published": true
+    },
+    {
+      "id": "demo-film-extra-1",
+      "department": "film",
+      "category": "Video Preview",
+      "type": "video",
+      "title": "Video Preview B — Demo",
+      "description": "Repeated demonstration player asset to preview multiple rotating media projects; replace with licensed BDS content.",
+      "alt": "Illustrative media player preview",
+      "media": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "poster": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80",
+      "demo": true,
+      "published": true
+    },
+    {
+      "id": "demo-film-extra-2",
+      "department": "film",
+      "category": "Video Preview",
+      "type": "video",
+      "title": "Video Preview C — Demo",
+      "description": "Repeated demonstration player asset to preview multiple rotating media projects; replace with licensed BDS content.",
+      "alt": "Illustrative media player preview",
+      "media": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "poster": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=900&q=80",
+      "demo": true,
+      "published": true
+    },
+    {
+      "id": "demo-sound-extra-1",
+      "department": "sound",
+      "category": "Audio Preview",
+      "type": "audio",
+      "title": "Audio Preview B — Demo",
+      "description": "Repeated demonstration player asset to preview multiple rotating media projects; replace with licensed BDS content.",
+      "alt": "Illustrative media player preview",
+      "media": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      "demo": true,
+      "published": true
     }
   ]
 }
