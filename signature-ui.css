@@ -1,0 +1,60 @@
+/* BDS signature design system — editorial luxury, restrained and accessible. */
+:root{--signature-gold:#d8ad67;--signature-ivory:#f6f0e5;--signature-ink:#0d0c0a;--signature-muted:#c8c0b4;--signature-line:rgba(216,173,103,.32);--signature-motion:cubic-bezier(.22,1,.36,1)}
+body{font-family:"DM Sans",system-ui,sans-serif;font-size:15px;line-height:1.65}
+h1,h2,h3,.brand{font-family:"Manrope",system-ui,sans-serif;text-wrap:balance}
+p{overflow-wrap:break-word}
+.site-header,.showcase .site-header{border-bottom-color:rgba(216,173,103,.19)}
+.site-nav a:not(.nav-cta){font-weight:600;letter-spacing:.012em}
+.site-nav a[aria-current=page]{color:var(--signature-gold)}
+.site-nav a:focus-visible,.brand:focus-visible,.back-link:focus-visible{border-radius:4px}
+.pill-button,.nav-cta,.orbit-control,.viewer-close,.booking-form button,.bds-admin button{font-family:"DM Sans",system-ui,sans-serif;font-weight:700;letter-spacing:.012em;transition:background-color .22s var(--signature-motion),color .22s var(--signature-motion),border-color .22s var(--signature-motion),box-shadow .22s var(--signature-motion),transform .22s var(--signature-motion)}
+.pill-button,.nav-cta{min-height:46px;gap:20px}
+.pill-button.primary{background:var(--signature-gold);color:#11100e;border:1px solid var(--signature-gold)}
+.pill-button.primary:hover,.pill-button.primary:focus-visible{background:#f0ce96;border-color:#f0ce96;transform:translateY(-1px);box-shadow:0 8px 26px rgba(216,173,103,.19)}
+.pill-button:active,.nav-cta:active,.orbit-control:active{transform:translateY(0)}
+.nav-cta:hover,.nav-cta:focus-visible{background:var(--signature-gold);color:#11100e;border-color:var(--signature-gold)}
+.text-button,.underlined-link,.back-link{transition:color .2s,border-color .2s}
+.text-button:hover,.underlined-link:hover,.back-link:hover{color:var(--signature-gold);border-color:var(--signature-gold)}
+.hero h1,.showcase-copy h1{letter-spacing:-.065em}
+.hero-lead,.showcase-copy p{color:#e2dbd1}
+.showcase-copy .back-link{align-self:flex-start;margin-bottom:23px}
+.showcase-copy .pill-button{margin-top:20px}
+.showcase-panel h2,.showcase-gallery h2{letter-spacing:-.055em}
+.service-tile{padding:clamp(19px,2.5vw,32px);transition:background-color .22s}
+.service-tile strong{font-size:clamp(16px,1.5vw,21px);font-weight:700;letter-spacing:-.035em}
+.service-tile span{font-size:13px;font-variant-numeric:tabular-nums}
+.showcase-visual.has-portfolio .orbit-toolbar{gap:9px}
+.showcase-visual.has-portfolio .orbit-control{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:10px 15px;font-size:13px;border:1px solid #aa8a5e;background:#211c17;color:#f6e6cf}
+.showcase-visual.has-portfolio .orbit-control:hover{background:var(--signature-gold);border-color:var(--signature-gold);color:#14100d}
+.showcase-visual.has-portfolio .filter-tabs button{min-height:40px;padding:9px 14px;font-size:12px;font-weight:650}
+.showcase-visual.has-portfolio .filter-tabs button:hover{border-color:var(--signature-gold);color:#fff}
+.showcase-visual.has-portfolio .filter-tabs button[aria-pressed=true]:hover{color:#111}
+.showcase-visual.has-portfolio .orbit-stage .portfolio-project{border-color:rgba(216,173,103,.55)}
+.showcase-visual.has-portfolio .orbit-stage .portfolio-project:focus-visible{outline:3px solid #f6d7a6!important;outline-offset:3px}
+.showcase-visual.has-portfolio .orbit-stage .project-details strong{line-height:1.3}
+.portfolio-viewer{border-color:#b08c5c;background:#14110e}
+.viewer-close{min-height:44px;padding:10px 18px}
+.viewer-content h2{letter-spacing:-.045em}
+.bds-booking,.bds-admin{font-family:"DM Sans",system-ui,sans-serif}
+.bds-booking h1,.bds-booking h2,.bds-booking h3,.bds-admin h1,.bds-admin h2{font-family:"Manrope",system-ui,sans-serif;letter-spacing:-.05em}
+.bds-booking .topbar nav a{min-height:44px;display:inline-flex;align-items:center}
+.bds-booking .booking-form label,.bds-admin label{font-size:13px;font-weight:650;letter-spacing:.012em}
+.bds-booking .booking-form input:not([type=checkbox]),.bds-booking .booking-form select,.bds-booking .booking-form textarea,.bds-admin input:not([type=checkbox]),.bds-admin select,.bds-admin textarea{font-family:"DM Sans",system-ui,sans-serif;font-size:15px;line-height:1.5}
+.bds-booking .booking-form .goldBtn{min-height:48px;background:var(--signature-gold);color:#14100d;border:1px solid var(--signature-gold);font-size:14px}
+.bds-booking .booking-form .goldBtn:hover{background:#f0ce96;border-color:#f0ce96}
+.bds-booking .booking-info p,.bds-booking .form-note{line-height:1.65}
+.bds-admin button{min-height:44px}
+.bds-admin .notice{line-height:1.7}
+@media(max-width:700px){
+.site-nav.open{max-height:calc(100dvh - 65px);overflow-y:auto;box-shadow:0 24px 50px rgba(0,0,0,.55)}
+.site-nav.open a{min-height:44px;display:flex;align-items:center}
+.menu-toggle{min-width:44px;min-height:44px;justify-content:center}
+.hero h1{letter-spacing:-.06em}
+.showcase-copy .back-link{margin-bottom:18px}
+.showcase-visual.has-portfolio .orbit-toolbar{gap:8px}
+.showcase-visual.has-portfolio .orbit-control{min-width:44px}
+.showcase-visual.has-portfolio .filter-tabs{gap:7px}
+.showcase-visual.has-portfolio .filter-tabs button{min-height:42px}
+.bds-booking .booking-form .goldBtn{width:100%;justify-content:center;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){.pill-button,.nav-cta,.orbit-control,.viewer-close,.service-tile{transition:none!important;transform:none!important}}
