@@ -4,6 +4,7 @@
   const department = document.body.dataset.department;
   if (!section || !['photography','film','sound'].includes(department)) return;
   const empty = section.querySelector('.portfolio-empty');
+  const heroVisual = document.querySelector('.showcase-visual');
   const socialNote = section.querySelector('.social-note');
   const allowedTypes = {photography:['image'],film:['video','image'],sound:['audio','video','image']};
   const safeMedia = value => typeof value === 'string' && (/^assets\/portfolio\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp|mp4|mp3|ogg)$/i.test(value) || /^https:\/\/[^\s]+$/i.test(value));
@@ -64,7 +65,11 @@
       for(const category of ['All',...categories]){
         const button=make('button','',category);button.type='button';button.dataset.filter=category;button.addEventListener('click',()=>show(category));filters.append(button);
       }
-      empty.before(filters,gallery);show('All');
+      heroVisual.classList.add('has-portfolio');
+      heroVisual.removeAttribute('role');
+      heroVisual.removeAttribute('aria-label');
+      heroVisual.append(gallery,filters);
+      show('All');
     }
     const links=Object.entries(content.social||{}).map(([name,url])=>[name,safeExternal(url)]).filter(([,url])=>url);
     if(links.length){
