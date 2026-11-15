@@ -1,0 +1,32 @@
+name: BDS Pull Request Quality Checks
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JavaScript syntax
+        run: |
+          for script in *.js; do node --check "$script"; done
+      - name: Validate HTML assets and portfolio schema
+        run: python3 scripts/validate_site.py
+      - name: Check department hero structure
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          for name in ("photography.html", "film.html", "sound.html"):
+              html = Path(name).read_text()
+              assert 'class="showcase-visual"' in html, name
+              assert 'class="showcase-gallery"' not in html, name
+              assert 'hero-globe.css' in html and 'signature-ui.css' in html, name
+          css = Path("hero-globe.css").read_text()
+          assert ".showcase-visual.has-portfolio" in css
+          js = Path("portfolio.js").read_text()
+          assert "departmentHeroes" in js and "heroVisual.append(gallery,filters)" in js
+          print("Department hero structure checks passed.")
+          PY
