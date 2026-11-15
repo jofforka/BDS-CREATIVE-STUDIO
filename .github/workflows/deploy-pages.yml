@@ -4,6 +4,14 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'photography.html'
+      - 'film.html'
+      - 'sound.html'
+      - 'showcase.css'
+      - 'showcase.js'
+      - 'portfolio.js'
+      - 'content/**'
+      - 'showcase-data.js'
       - 'styles.css'
       - 'cinematic.css'
       - 'cinematic.js'
@@ -32,6 +40,14 @@ jobs:
       - name: Validate static website
         run: |
           test -s index.html
+          test -s photography.html
+          test -s film.html
+          test -s sound.html
+          test -s showcase.css
+          test -s showcase.js
+          test -s portfolio.js
+          test -s content/portfolio.json
+          test -s showcase-data.js
           test -s styles.css
           test -s cinematic.css
           test -s cinematic.js
@@ -44,6 +60,9 @@ jobs:
         run: |
           mkdir -p public
           cp index.html styles.css cinematic.css cinematic.js booking.html booking.css booking-premium.css booking.js public/
+          cp photography.html film.html sound.html showcase.css showcase.js showcase-data.js portfolio.js public/
+          mkdir -p public/content
+          cp content/portfolio.json public/content/
           cp -R assets public/
           touch public/.nojekyll
       - uses: actions/configure-pages@v5
