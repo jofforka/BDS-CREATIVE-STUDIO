@@ -1,0 +1,26 @@
+/* Unified premium treatment for booking and portfolio management */
+.bds-booking,.bds-admin{--gold:#d8ad67;--cream:#f6f0e5;--surface:#191612;--line:#594a36;color:var(--cream);-webkit-font-smoothing:antialiased}
+.bds-booking{font-family:"Manrope",system-ui,sans-serif;background:radial-gradient(ellipse at 80% 0%,#2b2117,#0e0d0b 52%)}
+.bds-admin{font-family:"Manrope",system-ui,sans-serif;background:radial-gradient(ellipse at 70% 0%,#282016,#0b0b0b 50%)}
+.bds-booking .skip-link,.bds-admin .skip-link{position:fixed;top:-100px;left:16px;z-index:999;background:#f6f0e5;color:#111;padding:12px 16px}.skip-link:focus{top:12px}
+.bds-booking :focus-visible,.bds-admin :focus-visible{outline:3px solid #f1d4a3;outline-offset:3px}
+.bds-booking .topbar{position:relative;gap:24px;flex-wrap:wrap;background:rgba(14,12,10,.96);border-bottom:1px solid rgba(216,173,103,.28)}
+.bds-booking .topbar nav{flex-wrap:wrap;gap:clamp(10px,2vw,22px)}.bds-booking .topbar nav a:hover{color:#f1d4a3}
+.bds-booking .booking-intro{position:relative}.bds-booking .booking-intro::before{content:"";position:absolute;width:100px;height:2px;left:0;bottom:-25px;background:linear-gradient(90deg,#d8ad67,transparent)}
+.bds-booking .booking-form,.bds-booking .booking-info,.bds-admin .panel{box-shadow:0 22px 70px rgba(0,0,0,.22);border-radius:18px;border-color:rgba(216,173,103,.25)}
+.bds-booking .booking-form{background:linear-gradient(160deg,#1d1a16,#141312);padding:clamp(24px,4vw,56px)}
+.bds-booking .booking-info{background:linear-gradient(160deg,#30261b,#171513)}
+.bds-booking .booking-form input:not([type=checkbox]),.bds-booking .booking-form select,.bds-booking .booking-form textarea,.bds-admin input:not([type=checkbox]),.bds-admin select,.bds-admin textarea{min-height:48px;background:#0d0c0b;border:1px solid #6b5b45;border-radius:10px;padding:12px 14px;color:#fff;transition:border-color .2s,box-shadow .2s}
+.bds-booking .booking-form textarea,.bds-admin textarea{min-height:125px;resize:vertical}
+.bds-booking .booking-form input:focus,.bds-booking .booking-form select:focus,.bds-booking .booking-form textarea:focus,.bds-admin input:focus,.bds-admin select:focus,.bds-admin textarea:focus{border-color:#e6be81;box-shadow:0 0 0 3px rgba(216,173,103,.14)}
+.bds-booking .booking-form label,.bds-admin label{line-height:1.5}
+.bds-booking .booking-form button,.bds-admin button{min-height:46px;transition:transform .2s,background .2s,box-shadow .2s}
+.bds-booking .booking-form button:hover,.bds-admin button:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(216,173,103,.12)}
+.bds-booking .booking-form button:active,.bds-admin button:active{transform:none}
+.bds-admin header{align-items:center}.bds-admin header a{font-weight:800}.bds-admin header a:hover{color:#fff}
+.bds-admin .panel{background:linear-gradient(145deg,#211c17,#161412)}.bds-admin .notice{border-radius:10px;background:#31271b}
+.bds-admin .project{padding:22px 0}.bds-admin .project strong{letter-spacing:-.02em}.bds-admin .project .actions{flex-shrink:0}
+.bds-admin button.secondary{border-color:#94764e}.bds-admin button.danger{border-color:#c16c5d}
+.bds-admin #message:not(:empty){padding:12px 0;font-weight:600}
+@media(max-width:700px){.bds-booking .topbar{padding:18px 20px}.bds-booking .topbar nav{width:100%;overflow-x:auto}.bds-booking .booking-main{padding-left:20px;padding-right:20px}.bds-booking .booking-info{padding:28px 23px}.bds-admin .panel{padding:23px 19px}.bds-admin .project{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.bds-booking *,.bds-admin *{transition:none!important;scroll-behavior:auto!important}}
