@@ -30,6 +30,17 @@ for page in PAGES:
             errors.append(f"{page}: missing asset {asset}")
 
 data = json.loads((ROOT / "content/portfolio.json").read_text(encoding="utf-8"))
+heroes = data.get('departmentHeroes', {})
+if not isinstance(heroes, dict):
+    errors.append('departmentHeroes must be an object')
+else:
+    for department, hero in heroes.items():
+        if department not in ALLOWED_DEPARTMENTS or not isinstance(hero, dict):
+            errors.append(f'{department}: invalid department hero')
+            continue
+        media = hero.get('media')
+        if not isinstance(media, str) or not ALLOWED_MEDIA.fullmatch(media) or not re.search(r'\\.(jpg|jpeg|png|webp)(\\?|$)', media, re.I):
+            errors.append(f'{department}: invalid featured image')
 ids = set()
 for i, p in enumerate(data.get("projects", [])):
     ident = p.get("id")
