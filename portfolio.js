@@ -1,11 +1,9 @@
 (() => {
   'use strict';
-  const section = document.querySelector('.showcase-gallery');
+  const section = document.querySelector('.showcase-visual');
   const department = document.body.dataset.department;
   if (!section || !['photography','film','sound'].includes(department)) return;
-  const empty = section.querySelector('.portfolio-empty');
   const heroVisual = document.querySelector('.showcase-visual');
-  const socialNote = section.querySelector('.social-note');
   const allowedTypes = {photography:['image'],film:['video','image'],sound:['audio','video','image']};
   const safeMedia = value => typeof value === 'string' && (/^assets\/portfolio\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp|mp4|mp3|ogg)$/i.test(value) || /^https:\/\/[^\s]+$/i.test(value));
   const safeExternal = value => {
@@ -42,13 +40,15 @@
     lastTrigger=document.activeElement;viewer.showModal();
   };
   const render = content => {
-    const demoProjects=Array.isArray(content?.projects)?content.projects.filter(p=>p?.demo===true && p.published===true && p.department===department):[];
-    if(demoProjects.length){const banner=make('div','demo-disclosure');banner.setAttribute('role','note');banner.textContent='DEMONSTRATION PORTFOLIO — The media below is sample content, not BDS client work. All samples will be replaced with approved BDS projects.';section.querySelector('.intro')?.after(banner);}
-
     if(!content || !Array.isArray(content.projects))return;
     const projects=content.projects.filter(p=>p && p.published===true && p.department===department && typeof p.title==='string' && p.title.length>0 && allowedTypes[department].includes(p.type) && safeMedia(p.media));
+    const main=content.departmentHeroes?.[department];
+    if(main && safeMedia(main.media) && /\.(jpg|jpeg|png|webp)(\?|$)/i.test(main.media)){
+      heroVisual.style.backgroundImage='url("'+main.media.replace(/["\\]/g,'')+'")';
+      heroVisual.classList.add('has-custom-hero');
+      heroVisual.setAttribute('aria-label',main.alt||department+' department featured image');
+    }
     if(projects.length){
-      empty.hidden=true;
       const categories=[...new Set(projects.map(p=>p.category).filter(c=>typeof c==='string'&&c.length<50))];
       const filters=make('div','filter-tabs');filters.setAttribute('aria-label','Filter projects');
       const gallery=make('div','portfolio-grid');gallery.setAttribute('aria-live','polite');
@@ -69,14 +69,11 @@
       heroVisual.removeAttribute('role');
       heroVisual.removeAttribute('aria-label');
       heroVisual.append(gallery,filters);
+      if(projects.some(p=>p.demo===true)){
+        const note=make('p','hero-demo-note','PORTFOLIO PREVIEW · SOME MEDIA IS DEMONSTRATION CONTENT, NOT BDS CLIENT WORK');
+        heroVisual.append(note);
+      }
       show('All');
-    }
-    const links=Object.entries(content.social||{}).map(([name,url])=>[name,safeExternal(url)]).filter(([,url])=>url);
-    if(links.length){
-      const social=make('div','portfolio-social');
-      social.append(make('span','','FOLLOW THE CREATIVE JOURNEY'));
-      links.forEach(([name,url])=>{const link=make('a','',name.charAt(0).toUpperCase()+name.slice(1)+' ↗');link.href=url;link.target='_blank';link.rel='noopener noreferrer';social.append(link);});
-      socialNote.replaceWith(social);
     }
   };
   fetch('content/portfolio.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('Portfolio content unavailable');return response.json()}).then(render).catch(()=>{ /* Keep the honest empty state; never show unverified projects. */ });
