@@ -34,3 +34,7 @@
 .showcase-visual.has-portfolio .orbit-stage .project-details{min-height:48px}
 .showcase-visual.has-portfolio .orbit-toolbar span{width:100%;text-align:center}
 }
+
+/* A department's selected main image is the hero fallback behind its globe. */
+.showcase-visual.has-custom-hero:not(.has-portfolio){background-position:center;background-size:cover}
+.showcase-visual.has-portfolio .hero-demo-note{font-size:10px;line-height:1.45;color:#e6c89c;text-align:center;letter-spacing:.065em;margin:8px 0 0}
