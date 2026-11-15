@@ -27,7 +27,7 @@
     let element;
     if(type==='image'){element=document.createElement('img');element.src=src;element.alt=project.alt||project.title;element.loading=preview?'lazy':'eager';}
     else if(type==='video'){element=document.createElement('video');element.src=src;element.controls=!preview;element.muted=preview;element.playsInline=true;element.preload='metadata';if(preview && safeMedia(project.poster))element.poster=project.poster;}
-    else if(type==='audio'){element=document.createElement('audio');element.src=src;element.controls=!preview;element.preload='none';}
+    else if(type==='audio'){if(preview){element=make('div','audio-preview','♫');element.setAttribute('aria-hidden','true');}else{element=document.createElement('audio');element.src=src;element.controls=true;element.preload='none';}}
     return element;
   };
   const displayProject = project => {
