@@ -13,16 +13,23 @@
   const position = () => {
     if (!stage || !cards.length) return;
     const width=stage.clientWidth, height=stage.clientHeight;
-    const radiusX=Math.min(width*.36,440), radiusY=Math.min(height*.24,125);
+    const radiusX=Math.min(width*.35,420), radiusY=Math.min(height*.39,245);
+    const n=cards.length;
+    // Fibonacci sphere: even distribution over the entire globe, not a flat ring.
+    const goldenAngle=Math.PI*(3-Math.sqrt(5));
     cards.forEach((card,index)=>{
-      const theta=angle+index*2*Math.PI/cards.length;
-      const depth=Math.cos(theta);
-      const x=Math.sin(theta)*radiusX;
-      const y=-Math.sin(theta)*radiusY;
-      const scale=.64+(depth+1)*.16;
-      card.style.transform='translate(-50%,-50%) translate3d('+x.toFixed(2)+'px,'+y.toFixed(2)+'px,'+(depth*210).toFixed(2)+'px) scale('+scale.toFixed(3)+')';
-      card.style.zIndex=String(Math.round((depth+1)*100));
-      card.style.opacity=String(.56+(depth+1)*.22);
+      const latitude=1-2*(index+.5)/n;
+      const ring=Math.sqrt(Math.max(0,1-latitude*latitude));
+      const longitude=index*goldenAngle+angle;
+      const x=Math.cos(longitude)*ring;
+      const z=Math.sin(longitude)*ring;
+      const y=latitude;
+      const scale=.54+(z+1)*.19;
+      const dx=x*radiusX,dy=y*radiusY;
+      card.style.transform='translate(-50%,-50%) translate3d('+dx.toFixed(2)+'px,'+dy.toFixed(2)+'px,'+(z*260).toFixed(2)+'px) scale('+scale.toFixed(3)+')';
+      card.style.zIndex=String(Math.round((z+1)*100));
+      card.style.opacity=String(.33+(z+1)*.33);
+      card.style.filter='brightness('+(0.58+(z+1)*.21).toFixed(2)+')';
     });
   };
   const animate = now => {
@@ -40,7 +47,7 @@
     const prev=makeButton('Rotate gallery left','←');
     const pause=makeButton('Pause gallery rotation',paused?'Play rotation':'Pause rotation');
     const next=makeButton('Rotate gallery right','→');
-    const status=document.createElement('span');status.textContent='DRAG-FREE 360° SHOWCASE · SELECT TO EXPLORE';
+    const status=document.createElement('span');status.textContent='ROTATING 3D GLOBE · SELECT ANY PROJECT TO EXPLORE';
     prev.addEventListener('click',()=>{angle-=Math.PI/3;position()});
     next.addEventListener('click',()=>{angle+=Math.PI/3;position()});
     pause.addEventListener('click',()=>{paused=!paused;pause.textContent=paused?'Play rotation':'Pause rotation';pause.setAttribute('aria-label',paused?'Play gallery rotation':'Pause gallery rotation')});
