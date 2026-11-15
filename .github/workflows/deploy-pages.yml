@@ -5,8 +5,11 @@ on:
     paths:
       - 'index.html'
       - 'styles.css'
+      - 'cinematic.css'
+      - 'cinematic.js'
       - 'booking.html'
       - 'booking.css'
+      - 'booking-premium.css'
       - 'booking.js'
       - 'assets/**'
       - '.github/workflows/deploy-pages.yml'
@@ -30,14 +33,17 @@ jobs:
         run: |
           test -s index.html
           test -s styles.css
+          test -s cinematic.css
+          test -s cinematic.js
           test -s booking.html
           test -s booking.css
+          test -s booking-premium.css
           test -s booking.js
           test -s assets/bds-logo.png
       - name: Stage only public assets
         run: |
           mkdir -p public
-          cp index.html styles.css booking.html booking.css booking.js public/
+          cp index.html styles.css cinematic.css cinematic.js booking.html booking.css booking-premium.css booking.js public/
           cp -R assets public/
           touch public/.nojekyll
       - uses: actions/configure-pages@v5
