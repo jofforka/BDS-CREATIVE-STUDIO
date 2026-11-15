@@ -7,7 +7,7 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ["index.html", "booking.html", "photography.html", "film.html", "sound.html", "portfolio-admin.html"]
+PAGES = ["index.html", "booking.html", "photography.html", "film.html", "sound.html", "portfolio-admin.html", "brand.html", "academy.html", "contact.html"]
 ALLOWED_DEPARTMENTS = {"photography": {"image"}, "film": {"image", "video"}, "sound": {"image", "video", "audio"}}
 ALLOWED_MEDIA = re.compile(r"^assets/portfolio/[a-zA-Z0-9/_-]+\.(jpg|jpeg|png|webp|mp4|mp3|ogg)$|^https://[^\s]+$", re.I)
 errors = []
