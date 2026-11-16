@@ -6,6 +6,10 @@ on:
       - 'index.html'
       - 'brand.html'
       - 'academy.html'
+      - 'academy-course.html'
+      - 'academy.css'
+      - 'academy.js'
+      - 'academy-course.js'
       - 'contact.html'
       - 'destination.css'
       - 'photography.html'
@@ -59,6 +63,11 @@ jobs:
           test -s index.html
           test -s brand.html
           test -s academy.html
+          test -s academy-course.html
+          test -s academy.css
+          test -s academy.js
+          test -s academy-course.js
+          python3 -m json.tool content/academy-catalog.json > /dev/null
           test -s contact.html
           test -s destination.css
           test -s photography.html
@@ -97,10 +106,10 @@ jobs:
       - name: Stage only public assets
         run: |
           mkdir -p public
-          cp index.html brand.html academy.html contact.html destination.css styles.css cinematic.css cinematic.js premium-ui.css signature-ui.css marquee-fix.css compact-layout.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
+          cp index.html brand.html academy.html academy-course.html academy.css academy.js academy-course.js contact.html destination.css styles.css cinematic.css cinematic.js premium-ui.css signature-ui.css marquee-fix.css compact-layout.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
           cp photography.html film.html sound.html showcase.css hero-globe.css showcase.js showcase-data.js portfolio.js orbit-gallery.js portfolio-admin.html portfolio-admin.js portfolio-admin.css public/
           mkdir -p public/content
-          cp content/portfolio.json public/content/
+          cp content/portfolio.json content/academy-catalog.json public/content/
           cp -R assets public/
           touch public/.nojekyll
       - uses: actions/configure-pages@v5
