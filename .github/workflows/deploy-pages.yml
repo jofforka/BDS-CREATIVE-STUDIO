@@ -13,6 +13,9 @@ on:
       - 'academy-learn.html'
       - 'academy-learn.css'
       - 'academy-learn.js'
+      - 'academy-verify.html'
+      - 'academy-verify.css'
+      - 'academy-verify.js'
       - 'scripts/test_academy_course_model.cjs'
       - 'academy-portal.html'
       - 'academy-portal.css'
@@ -82,6 +85,9 @@ jobs:
           test -s academy-learn.html
           test -s academy-learn.css
           test -s academy-learn.js
+          test -s academy-verify.html
+          test -s academy-verify.css
+          test -s academy-verify.js
           test -s academy-portal.html
           test -s academy-portal.css
           test -s academy-portal.js
@@ -130,7 +136,7 @@ jobs:
       - name: Stage only public assets
         run: |
           mkdir -p public
-          cp index.html brand.html academy.html academy-workspace.html academy-workspace.css academy-workspace.js academy-course-model.js academy-learn.html academy-learn.css academy-learn.js academy-course.html academy-portal.html academy-portal.css academy-portal.js academy-config.js academy.css academy.js academy-course.js contact.html destination.css styles.css cinematic.css cinematic.js premium-ui.css signature-ui.css marquee-fix.css compact-layout.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
+          cp index.html brand.html academy.html academy-workspace.html academy-workspace.css academy-workspace.js academy-course-model.js academy-learn.html academy-learn.css academy-learn.js academy-verify.html academy-verify.css academy-verify.js academy-course.html academy-portal.html academy-portal.css academy-portal.js academy-config.js academy.css academy.js academy-course.js contact.html destination.css styles.css cinematic.css cinematic.js premium-ui.css signature-ui.css marquee-fix.css compact-layout.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
           cp photography.html film.html sound.html showcase.css hero-globe.css showcase.js showcase-data.js portfolio.js orbit-gallery.js portfolio-admin.html portfolio-admin.js portfolio-admin.css public/
           mkdir -p public/content
           cp content/portfolio.json content/academy-catalog.json public/content/
