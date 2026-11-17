@@ -77,5 +77,24 @@ create trigger academy_question_options_guard
 before insert or update of options on public.academy_assessment_questions
 for each row execute function public.academy_assert_question_options();
 
+
+create or replace function public.academy_guard_assessed_module_move()
+returns trigger language plpgsql set search_path = '' as $
+begin
+ if new.course_id is distinct from old.course_id and exists (
+   select 1 from public.academy_lessons l
+   join public.academy_assessments a on a.lesson_id=l.id
+   where l.module_id=new.id and a.course_id<>new.course_id
+ ) then
+   raise check_violation using message='Cannot move module with assessments to another course';
+ end if;
+ return new;
+end;
+$;
+revoke all on function public.academy_guard_assessed_module_move() from public, anon, authenticated;
+create trigger academy_assessed_module_course_guard
+before update of course_id on public.academy_modules
+for each row execute function public.academy_guard_assessed_module_move();
+
 -- Existing records must be checked before this migration is applied in a populated database.
 -- This migration does not implement trusted grading, attempt limits or secure API writes.
