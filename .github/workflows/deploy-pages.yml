@@ -47,6 +47,7 @@ on:
       - 'content/**'
       - 'scripts/validate_site.py'
       - 'scripts/audit_academy_release.py'
+      - 'scripts/test_academy_schema_contracts.py'
       - 'showcase-data.js'
       - 'styles.css'
       - 'cinematic.css'
@@ -148,6 +149,8 @@ jobs:
         run: python3 scripts/validate_site.py
       - name: Audit Academy release prerequisites
         run: python3 scripts/audit_academy_release.py
+      - name: Check Academy database schema contracts
+        run: python3 scripts/test_academy_schema_contracts.py
       - name: Stage only public assets
         run: |
           mkdir -p public
