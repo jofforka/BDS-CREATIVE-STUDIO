@@ -40,6 +40,7 @@ on:
       - 'orbit-gallery.js'
       - 'content/**'
       - 'scripts/validate_site.py'
+      - 'scripts/audit_academy_release.py'
       - 'showcase-data.js'
       - 'styles.css'
       - 'cinematic.css'
@@ -133,6 +134,8 @@ jobs:
           node scripts/test_academy_course_model.cjs
       - name: Validate site assets and portfolio data
         run: python3 scripts/validate_site.py
+      - name: Audit Academy release prerequisites
+        run: python3 scripts/audit_academy_release.py
       - name: Stage only public assets
         run: |
           mkdir -p public
