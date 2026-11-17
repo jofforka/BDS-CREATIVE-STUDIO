@@ -117,7 +117,8 @@ jobs:
           test -s assets/bds-logo.png
       - name: Validate JavaScript syntax
         run: |
-          for script in *.js; do node --check "$script"; done\n          node scripts/test_academy_course_model.cjs
+          for script in *.js; do node --check "$script"; done
+          node scripts/test_academy_course_model.cjs
       - name: Validate site assets and portfolio data
         run: python3 scripts/validate_site.py
       - name: Stage only public assets
