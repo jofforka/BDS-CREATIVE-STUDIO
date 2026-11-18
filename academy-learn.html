@@ -1,1 +1,43 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0b0b0b"><title>Learning experience preview | BDS Academy</title><link rel="stylesheet" href="cinematic.css"><link rel="stylesheet" href="academy.css"><link rel="stylesheet" href="academy-learn.css"><script src="academy-learn.js" defer></script></head><body class="academy-page"><a class="skip-link" href="#main">Skip to content</a><main id="main" class="learn-shell"><a class="learn-back" href="academy.html">← BDS Academy</a><p class="academy-eyebrow">BDS CREATIVE STUDIOS · LEARNING EXPERIENCE</p><h1>Make every lesson count.</h1><p class="learn-intro">A preview of the student learning environment. Real lessons, resources, enrolments and progress will be available after secure backend integration.</p><div class="learn-warning" role="status">Interface preview only · No courses loaded · No student data saved · No certificates issued</div><div class="learn-layout"><aside class="learn-sidebar" aria-label="Course navigation"><h2>Course navigation</h2><p id="learn-course-status">No enrolled course selected.</p><ol id="learn-module-list" class="learn-module-list"><li>Modules and lessons will appear here once access is verified.</li></ol><a href="academy-portal.html">Go to student portal</a></aside><section class="learn-content" aria-labelledby="lesson-heading"><p class="academy-eyebrow">LESSON WORKSPACE</p><h2 id="lesson-heading">Your next lesson starts here.</h2><div class="learn-player" role="img" aria-label="Video player placeholder; no video is available"><span aria-hidden="true">▶</span><p>Private video playback will be enabled for enrolled students.</p></div><div class="learn-controls"><button type="button" disabled title="Requires an enrolled course">Previous lesson</button><button type="button" disabled title="Requires an enrolled course">Mark complete</button><button type="button" disabled title="Requires an enrolled course">Next lesson</button></div><section aria-labelledby="resources-heading"><h3 id="resources-heading">Lesson resources</h3><p>Downloads, transcripts and project files will appear here after instructor upload and entitlement checks.</p></section><section aria-labelledby="progress-heading"><h3 id="progress-heading">Course progress</h3><progress id="learn-progress" max="100" value="0" aria-label="Course progress"></progress><p id="learn-progress-label">Not started · 0% (preview only)</p></section><section aria-labelledby="notes-heading"><h3 id="notes-heading">My notes</h3><label for="learn-notes">Practice notes (not saved)</label><textarea id="learn-notes" rows="5" maxlength="3000" placeholder="Write down ideas while you learn…"></textarea><p>Notes are not stored or transmitted. Copy anything important before leaving this page.</p><button type="button" id="copy-learn-notes">Copy notes</button><p id="notes-status" role="status" aria-live="polite"></p></section></section></div></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Cinematography Foundations | BDS Academy</title>
+  <link rel="stylesheet" href="academy.css">
+  <script src="academy-config.js" defer></script>
+  <script type="module" src="academy-learn.js"></script>
+</head>
+<body class="academy-page academy-preview-page">
+  <main class="academy-preview" id="main">
+    <nav class="preview-top" aria-label="Academy navigation">
+      <a class="preview-back" href="academy-portal.html">← Student portal</a>
+      <a class="preview-back" href="academy-course.html?id=demo-cinematography">Free preview</a>
+    </nav>
+    <header class="preview-header">
+      <h1>Cinematography Foundations</h1>
+      <p class="preview-summary" id="learn-status" role="status">Checking course access…</p>
+      <div class="preview-actions" id="learn-auth" hidden>
+        <a class="preview-primary" href="academy-portal.html?mode=register">Create a free student account</a>
+        <a class="preview-back" href="academy-portal.html">Sign in</a>
+      </div>
+    </header>
+    <section class="preview-curriculum" id="learn-content" hidden aria-label="Lessons">
+      <nav class="preview-outline" aria-label="Course outline">
+        <h2>Course outline</h2>
+        <div id="learn-outline"></div>
+      </nav>
+      <article class="preview-lesson" aria-labelledby="learn-title">
+        <p class="preview-position" id="learn-position"></p>
+        <h2 id="learn-title" tabindex="-1"></h2>
+        <p class="preview-instruction" id="learn-body" style="white-space: pre-line"></p>
+        <div class="preview-pagination">
+          <button id="learn-prev" type="button">← Previous</button>
+          <button id="learn-next" type="button">Next lesson →</button>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
