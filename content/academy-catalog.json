@@ -10,15 +10,18 @@
       "previewLessons": [
         {
           "title": "Frame a clear subject",
-          "text": "Place a person or object near a window. Film a wide shot that shows the setting, a medium shot that shows the action, and a close-up that isolates a detail. Review each frame and remove anything that pulls attention away from the subject."
+          "text": "Place a person or object near a window. Film a wide shot that shows the setting, a medium shot that shows the action, and a close-up that isolates a detail. Review each frame and remove anything that pulls attention away from the subject.",
+          "check": "Check your wide, medium, and close-up shots. Each should reveal something the others don’t."
         },
         {
           "title": "Shape light with a window",
-          "text": "Turn the subject so the window lights one side. Record five seconds, then hold a sheet of white paper just outside the frame on the shadow side. Compare the two clips and choose how much shadow suits the scene."
+          "text": "Turn the subject so the window lights one side. Record five seconds, then hold a sheet of white paper just outside the frame on the shadow side. Compare the two clips and choose how much shadow suits the scene.",
+          "check": "Compare the two clips. Look for detail in the shadow side without losing the shape of the face or object."
         },
         {
           "title": "Build a three-shot sequence",
-          "text": "Film a simple action such as pouring a glass of water. Start wide, cut to a medium shot of the pour, then cut to a close-up of the glass. Keep the camera on the same side of the action and repeat the movement for each angle so the cuts match."
+          "text": "Film a simple action such as pouring a glass of water. Start wide, cut to a medium shot of the pour, then cut to a close-up of the glass. Keep the camera on the same side of the action and repeat the movement for each angle so the cuts match.",
+          "check": "Play the sequence back. The action should feel continuous across all three cuts."
         }
       ]
     }

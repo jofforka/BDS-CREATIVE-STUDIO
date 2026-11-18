@@ -10,20 +10,36 @@
 </head>
 <body class="academy-page academy-preview-page">
   <main class="academy-preview" id="main">
-    <header class="preview-header">
+    <nav class="preview-top" aria-label="Academy navigation">
       <a class="preview-back" href="academy.html">← BDS Academy</a>
+      <a class="preview-back" href="academy-portal.html">Student portal ↗</a>
+    </nav>
+    <header class="preview-header">
       <p class="preview-category" id="course-category" hidden></p>
       <h1 id="course-title">Course details</h1>
       <p class="preview-summary" id="course-summary" role="status">Loading course information…</p>
-      <a class="preview-primary" id="preview-start" href="#preview-lessons" hidden>Start the preview ↓</a>
+      <div class="preview-actions" id="preview-actions" hidden>
+        <a class="preview-primary" id="preview-start" href="#preview-lessons">Start lesson one ↓</a>
+        <span id="preview-count"></span>
+      </div>
     </header>
     <section class="preview-curriculum" id="preview-lessons" aria-labelledby="preview-heading" hidden>
-      <h2 id="preview-heading">Preview lessons</h2>
-      <p class="preview-guidance">Work through each exercise in order. A phone camera is enough.</p>
-      <ol id="preview-list"></ol>
+      <nav class="preview-outline" aria-labelledby="preview-heading">
+        <h2 id="preview-heading">Course outline</h2>
+        <ol id="preview-list"></ol>
+      </nav>
+      <article class="preview-lesson" aria-labelledby="lesson-title">
+        <p class="preview-position" id="lesson-position"></p>
+        <h2 id="lesson-title" tabindex="-1"></h2>
+        <p class="preview-instruction" id="lesson-text"></p>
+        <p class="preview-check" id="lesson-check" hidden></p>
+        <div class="preview-pagination">
+          <button id="lesson-prev" type="button">← Previous</button>
+          <button id="lesson-next" type="button">Next lesson →</button>
+        </div>
+      </article>
     </section>
     <footer class="preview-footer">
-      <a href="academy-portal.html">Student portal →</a>
       <a href="contact.html">Ask about enrolment ↗</a>
     </footer>
   </main>
