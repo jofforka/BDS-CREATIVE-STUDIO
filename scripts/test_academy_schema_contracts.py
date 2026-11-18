@@ -22,3 +22,11 @@ for key,tokens in required.items():
 if "grant execute on function public.academy_verify_certificate" in sql["verification"]:
  raise SystemExit("Public certificate verification function must not be directly granted")
 print("Academy schema static contract checks passed; live RLS and auth tests still required.")
+
+# Reject malformed PL/pgSQL function delimiters in Academy integrity migration.
+integrity=(root/"202611170004_academy_assessment_integrity.sql").read_text()
+if "as $\n" in integrity or "\n$;\n" in integrity:
+ raise SystemExit("Malformed PL/pgSQL dollar-quoted function delimiter")
+if integrity.count("as $$") != integrity.count("\n$$;"):
+ raise SystemExit("Unbalanced Academy integrity migration function delimiters")
+print("Academy integrity migration dollar quoting checked.")
