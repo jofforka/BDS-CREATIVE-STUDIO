@@ -11,19 +11,77 @@
         {
           "title": "Frame a clear subject",
           "text": "Place a person or object near a window. Film a wide shot that shows the setting, a medium shot that shows the action, and a close-up that isolates a detail. Review each frame and remove anything that pulls attention away from the subject.",
-          "check": "Check your wide, medium, and close-up shots. Each should reveal something the others don’t."
+          "check": "Check your wide, medium, and close-up shots. Each should reveal something the others don’t.",
+          "examples": {
+            "title": "Compare the three shot sizes",
+            "image": "assets/academy/cinematography-examples.jpg",
+            "frames": [
+              {
+                "cell": 0,
+                "label": "Wide shot",
+                "alt": "A person pouring water, framed with the kitchen around them.",
+                "caption": "Establishes where the action takes place."
+              },
+              {
+                "cell": 1,
+                "label": "Medium shot",
+                "alt": "A waist-up view showing the person’s hands and the pour.",
+                "caption": "Shows who is acting and what they’re doing."
+              },
+              {
+                "cell": 2,
+                "label": "Close-up",
+                "alt": "A tight view of the water stream and the rim of the glass.",
+                "caption": "Directs attention to one detail."
+              }
+            ]
+          }
         },
         {
           "title": "Shape light with a window",
           "text": "Turn the subject so the window lights one side. Record five seconds, then hold a sheet of white paper just outside the frame on the shadow side. Compare the two clips and choose how much shadow suits the scene.",
-          "check": "Compare the two clips. Look for detail in the shadow side without losing the shape of the face or object."
+          "check": "Compare the two clips. Look for detail in the shadow side without losing the shape of the face or object.",
+          "examples": {
+            "title": "Window light with and without bounce",
+            "image": "assets/academy/cinematography-examples.jpg",
+            "frames": [
+              {
+                "cell": 3,
+                "label": "Window light only",
+                "alt": "The window lights one side of the subject’s face, leaving the other side in shadow.",
+                "caption": "Look at the shadows on the cheek opposite the window."
+              },
+              {
+                "cell": 4,
+                "label": "Window light + white bounce",
+                "alt": "The same framing with a brighter cheek on the shadow side.",
+                "caption": "White paper reflects some light back onto the shadow side."
+              }
+            ]
+          }
         },
         {
           "title": "Build a three-shot sequence",
           "text": "Film a simple action such as pouring a glass of water. Start wide, cut to a medium shot of the pour, then cut to a close-up of the glass. Keep the camera on the same side of the action and repeat the movement for each angle so the cuts match.",
           "check": "Play the sequence back. The action should feel continuous across all three cuts."
         }
-      ]
+      ],
+      "assignment": {
+        "title": "Final assignment: Film a three-shot sequence",
+        "brief": "Use a phone or camera and a window to film a simple action, such as pouring a glass of water. Record each angle for at least five seconds, then trim and arrange the shots in order in your phone’s editor. Keep the finished sequence around 15–30 seconds. Review it on your device. No account or upload is required.",
+        "shots": [
+          "Wide — show the subject and their surroundings before the action begins.",
+          "Medium — show the action clearly. Repeat the movement so you have matching footage for the cut.",
+          "Close-up — isolate the detail that finishes the action. Keep the motion moving in the same screen direction."
+        ],
+        "checks": [
+          "My wide shot makes the setting clear.",
+          "My medium shot shows the main action without distractions.",
+          "My close-up adds a detail the earlier shots don’t show clearly.",
+          "The action and screen direction match across the cuts.",
+          "The subject stays easy to see as the sequence moves between shots."
+        ]
+      }
     }
   ]
 }
