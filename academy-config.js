@@ -1,4 +1,5 @@
-// Public configuration only. The publishable/anon key is not a secret; RLS is mandatory.
-// Replace placeholders after creating and securing a dedicated BDS Academy Supabase project.
-// NEVER paste a service_role key, personal access token, or database password here.
-window.BDS_ACADEMY_CONFIG = Object.freeze({supabaseUrl:'',supabasePublishableKey:''});
+// Public browser settings. Access is enforced by Supabase row-level security.
+window.BDS_ACADEMY_CONFIG = Object.freeze({
+  supabaseUrl: 'https://iujzlhjauqeycaqnmzrc.supabase.co',
+  supabasePublishableKey: 'sb_publishable_jjlhADHihIa6mJPuUiIvow_1vFXkV8n'
+});
