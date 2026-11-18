@@ -69,10 +69,10 @@ as $$ select exists(select 1 from public.academy_enrollments where course_id = p
 create or replace function public.academy_lesson_course(p_lesson uuid) returns uuid
 language sql stable security definer set search_path = ''
 as $$ select m.course_id from public.academy_lessons l join public.academy_modules m on m.id=l.module_id where l.id=p_lesson $$;
-revoke all on function public.academy_is_admin() from public;
-revoke all on function public.academy_teaches(uuid) from public;
-revoke all on function public.academy_is_enrolled(uuid) from public;
-revoke all on function public.academy_lesson_course(uuid) from public;
+revoke all on function public.academy_is_admin() from public, anon, authenticated;
+revoke all on function public.academy_teaches(uuid) from public, anon, authenticated;
+revoke all on function public.academy_is_enrolled(uuid) from public, anon, authenticated;
+revoke all on function public.academy_lesson_course(uuid) from public, anon, authenticated;
 grant execute on function public.academy_is_admin(),public.academy_teaches(uuid),public.academy_is_enrolled(uuid),public.academy_lesson_course(uuid) to authenticated;
 alter table public.academy_profiles enable row level security;
 alter table public.academy_courses enable row level security;
@@ -82,11 +82,12 @@ alter table public.academy_enrollments enable row level security;
 alter table public.academy_lesson_progress enable row level security;
 alter table public.academy_certificates enable row level security;
 create policy profiles_read on public.academy_profiles for select to authenticated using(user_id=(select auth.uid()) or (select public.academy_is_admin()));
-create policy courses_read on public.academy_courses for select to anon,authenticated using(status='published' or (select public.academy_is_admin()) or (select public.academy_teaches(id)));
+create policy courses_read on public.academy_courses for select to authenticated using(status='published' or (select public.academy_is_admin()) or (select public.academy_teaches(id)));
+create policy academy_published_courses_anon on public.academy_courses for select to anon using(status='published');
 create policy modules_read on public.academy_modules for select to authenticated using(exists(select 1 from public.academy_courses c where c.id=course_id and (c.status='published' or (select public.academy_is_admin()) or (select public.academy_teaches(c.id)))));
 create policy lessons_read on public.academy_lessons for select to authenticated using(exists(select 1 from public.academy_modules m where m.id=module_id and ((select public.academy_is_admin()) or (select public.academy_teaches(m.course_id)) or (select public.academy_is_enrolled(m.course_id)))));
 create policy enrollments_read on public.academy_enrollments for select to authenticated using(student_id=(select auth.uid()) or (select public.academy_is_admin()) or (select public.academy_teaches(course_id)));
-create policy progress_read on public.academy_lesson_progress for select to authenticated using(student_id=(select auth.uid()) or (select public.academy_is_admin()) or (select public.academy_teaches((select public.academy_lesson_course(lesson_id))));
+create policy progress_read on public.academy_lesson_progress for select to authenticated using(student_id=(select auth.uid()) or (select public.academy_is_admin()) or (select public.academy_teaches((select public.academy_lesson_course(lesson_id)))));
 create policy certificates_read on public.academy_certificates for select to authenticated using(student_id=(select auth.uid()) or (select public.academy_is_admin()));
 -- Intentionally NO browser-facing INSERT/UPDATE/DELETE policies.
 -- Authenticated write operations must use audited, server-side endpoints
