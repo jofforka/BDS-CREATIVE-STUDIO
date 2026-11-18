@@ -79,7 +79,7 @@ for each row execute function public.academy_assert_question_options();
 
 
 create or replace function public.academy_guard_assessed_module_move()
-returns trigger language plpgsql set search_path = '' as $
+returns trigger language plpgsql set search_path = '' as $$
 begin
  if new.course_id is distinct from old.course_id and exists (
    select 1 from public.academy_lessons l
@@ -90,7 +90,7 @@ begin
  end if;
  return new;
 end;
-$;
+$$;
 revoke all on function public.academy_guard_assessed_module_move() from public, anon, authenticated;
 create trigger academy_assessed_module_course_guard
 before update of course_id on public.academy_modules
