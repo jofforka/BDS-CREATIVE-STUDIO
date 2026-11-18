@@ -3,3 +3,18 @@
 .portal-preview h2 { margin-top: 0; }
 .portal-preview p { color: #dfd3c1; line-height: 1.65; }
 .portal-preview a { display: inline-flex; align-items: center; min-height: 44px; color: #ecc994; font-weight: 750; text-underline-offset: .25em; }
+
+.academy-portal { box-sizing: border-box; max-width: 1120px; padding-inline: clamp(16px, 5vw, 52px); }
+.academy-portal .academy-back { margin-bottom: 1.7rem; text-underline-offset: .22em; }
+.portal-header h1 { margin: .55rem 0 1.5rem; }
+.portal-layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; gap: clamp(16px, 4vw, 36px); }
+#portal-status { margin: 0 0 1rem; line-height: 1.5; overflow-wrap: anywhere; }
+#portal-status:empty { display: none; }
+.academy-portal section, .portal-preview { margin: 0; }
+.academy-portal section > h2 { margin-top: 0; }
+.academy-portal input { box-sizing: border-box; font-size: max(16px, 1em); }
+.portal-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.portal-tabs button { padding-inline: 4px; font-size: .85rem; line-height: 1.2; }
+#portal-submit { width: 100%; font-weight: 750; }
+#portal-submit:disabled { opacity: .65; cursor: wait; }
+@media (max-width: 740px) { .portal-layout { grid-template-columns: minmax(0, 1fr); } }
