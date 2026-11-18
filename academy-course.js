@@ -1,15 +1,64 @@
-(()=>{'use strict';const title=document.getElementById('course-title'),summary=document.getElementById('course-summary'),details=document.getElementById('course-details');const id=new URLSearchParams(location.search).get('id');if(!id||!/^[a-z0-9-]{1,80}$/.test(id)){summary.textContent='Course not found.';return}fetch('content/academy-catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('unavailable');return r.json()}).then(d=>{const c=(Array.isArray(d.courses)?d.courses:[]).find(c=>c.published===true&&c.slug===id);if(!c){summary.textContent='This course is not currently available.';return}document.title=c.title+' | BDS Academy';title.textContent=c.title;summary.textContent=c.summary;const p=document.createElement('p');p.textContent='Category: '+c.category;details.append(p);
-if(Array.isArray(c.previewLessons)&&c.previewLessons.length){
-  const section=document.createElement('section'), heading=document.createElement('h2');
-  heading.textContent='Free preview lessons';
-  section.append(heading);
-  for(const lesson of c.previewLessons){
-    if(!lesson||typeof lesson.title!=='string'||typeof lesson.text!=='string')continue;
-    const heading=document.createElement('h3'), body=document.createElement('p');
-    heading.textContent=lesson.title;
-    body.textContent=lesson.text;
-    section.append(heading,body);
+(() => {
+  'use strict';
+
+  const title = document.getElementById('course-title');
+  const summary = document.getElementById('course-summary');
+  const category = document.getElementById('course-category');
+  const section = document.getElementById('preview-lessons');
+  const list = document.getElementById('preview-list');
+  const start = document.getElementById('preview-start');
+  const slug = new URLSearchParams(location.search).get('id');
+
+  function renderLessons(lessons) {
+    if (!Array.isArray(lessons)) return;
+
+    for (const lesson of lessons) {
+      if (!lesson || typeof lesson.title !== 'string' || typeof lesson.text !== 'string') continue;
+
+      const item = document.createElement('li');
+      const details = document.createElement('details');
+      const heading = document.createElement('summary');
+      const body = document.createElement('p');
+      heading.textContent = lesson.title;
+      body.textContent = lesson.text;
+      details.open = list.children.length === 0;
+      details.append(heading, body);
+      item.append(details);
+      list.append(item);
+    }
+
+    if (list.children.length) {
+      section.hidden = false;
+      start.hidden = false;
+    }
   }
-  details.append(section);
-}
-const note=document.createElement('p');note.textContent='Online enrolment and lesson access will become available after the secure student platform launches.';details.append(note)}).catch(()=>{summary.textContent='Course information is temporarily unavailable.'})})();
+
+  async function loadCourse() {
+    if (!slug || !/^[a-z0-9-]{1,80}$/.test(slug)) {
+      summary.textContent = 'Course not found.';
+      return;
+    }
+
+    const response = await fetch('content/academy-catalog.json', {cache: 'no-store'});
+    if (!response.ok) throw new Error('Catalog unavailable');
+
+    const catalog = await response.json();
+    const courses = Array.isArray(catalog.courses) ? catalog.courses : [];
+    const course = courses.find(item => item?.published === true && item.slug === slug);
+    if (!course) {
+      summary.textContent = 'This course is not currently available.';
+      return;
+    }
+
+    document.title = course.title + ' | BDS Academy';
+    title.textContent = course.title;
+    summary.textContent = course.summary;
+    category.textContent = course.category;
+    category.hidden = false;
+    renderLessons(course.previewLessons);
+  }
+
+  loadCourse().catch(() => {
+    summary.textContent = 'Course information is temporarily unavailable.';
+  });
+})();
