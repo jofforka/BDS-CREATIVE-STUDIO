@@ -9,6 +9,86 @@
   const start = document.getElementById('preview-start');
   const slug = new URLSearchParams(location.search).get('id');
 
+  function renderExamples(examples) {
+    const group = document.getElementById('lesson-examples');
+    group.replaceChildren();
+    group.hidden = true;
+    if (!examples || !/^assets\/academy\/[\w.-]+\.jpg$/.test(examples.image) ||
+        !Array.isArray(examples.frames)) return;
+
+    const heading = document.createElement('h3');
+    heading.textContent = examples.title;
+    const grid = document.createElement('div');
+    grid.className = 'example-grid';
+    grid.classList.toggle('example-grid-pair', examples.frames.length === 2);
+
+    for (const frame of examples.frames) {
+      if (!Number.isInteger(frame.cell) || frame.cell < 0 || frame.cell > 4) continue;
+      const figure = document.createElement('figure');
+      const crop = document.createElement('div');
+      crop.className = 'example-crop';
+      const image = document.createElement('img');
+      image.src = examples.image;
+      image.alt = frame.alt;
+      image.style.left = `-${(frame.cell % 3) * 100}%`;
+      image.style.top = `-${Math.floor(frame.cell / 3) * 100}%`;
+      crop.append(image);
+      const caption = document.createElement('figcaption');
+      const label = document.createElement('strong');
+      label.textContent = frame.label;
+      const context = document.createElement('p');
+      context.textContent = frame.caption;
+      caption.append(label, context);
+      figure.append(crop, caption);
+      grid.append(figure);
+    }
+
+    if (!grid.children.length) return;
+    const note = document.createElement('p');
+    note.className = 'example-note';
+    note.textContent = 'AI-generated teaching stills';
+    group.append(heading, grid, note);
+    group.hidden = false;
+  }
+
+  function renderAssignment(assignment) {
+    if (!assignment || !Array.isArray(assignment.shots) || !Array.isArray(assignment.checks)) return;
+
+    const section = document.getElementById('film-assignment');
+    const title = document.getElementById('assignment-title');
+    title.textContent = assignment.title;
+    document.getElementById('assignment-brief').textContent = assignment.brief;
+    const shots = document.getElementById('assignment-shots');
+    for (const shot of assignment.shots) {
+      const item = document.createElement('li');
+      item.textContent = shot;
+      shots.append(item);
+    }
+
+    const review = document.getElementById('assignment-checks');
+    const status = document.getElementById('assignment-status');
+    const boxes = assignment.checks.map(check => {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      label.append(input, document.createTextNode(check));
+      review.append(label);
+      return input;
+    });
+    function updateProgress() {
+      const completed = boxes.filter(box => box.checked).length;
+      status.textContent = completed === boxes.length
+        ? 'Self-review complete. Keep your sequence and compare it with your next shoot.'
+        : `${completed} of ${boxes.length} checked`;
+    }
+    review.addEventListener('change', updateProgress);
+    updateProgress();
+    section.hidden = false;
+
+    const link = document.getElementById('lesson-assignment');
+    link.addEventListener('click', () => title.focus({preventScroll: true}));
+  }
+
   function renderLessons(lessons) {
     if (!Array.isArray(lessons)) return;
 
@@ -42,6 +122,7 @@
       position.textContent = `Lesson ${index + 1} of ${items.length}`;
       heading.textContent = lesson.title;
       text.textContent = lesson.text;
+      renderExamples(lesson.examples);
       check.textContent = typeof lesson.check === 'string' ? lesson.check : '';
       check.hidden = !check.textContent;
       buttons.forEach((button, i) => {
@@ -50,6 +131,7 @@
       });
       previous.disabled = index === 0;
       next.hidden = index === items.length - 1;
+      document.getElementById('lesson-assignment').hidden = !next.hidden || document.getElementById('film-assignment').hidden;
       if (focus) heading.focus();
     }
 
@@ -89,6 +171,7 @@
     summary.textContent = course.summary;
     category.textContent = course.category;
     category.hidden = false;
+    renderAssignment(course.assignment);
     renderLessons(course.previewLessons);
   }
 

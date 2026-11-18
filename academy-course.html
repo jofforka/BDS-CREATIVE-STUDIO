@@ -32,12 +32,26 @@
         <p class="preview-position" id="lesson-position"></p>
         <h2 id="lesson-title" tabindex="-1"></h2>
         <p class="preview-instruction" id="lesson-text"></p>
+        <div class="lesson-examples" id="lesson-examples" hidden></div>
         <p class="preview-check" id="lesson-check" hidden></p>
         <div class="preview-pagination">
           <button id="lesson-prev" type="button">← Previous</button>
           <button id="lesson-next" type="button">Next lesson →</button>
+          <a class="preview-primary" id="lesson-assignment" href="#film-assignment" hidden>Go to final assignment ↓</a>
         </div>
       </article>
+    </section>
+    <section class="preview-lesson film-assignment" id="film-assignment" aria-labelledby="assignment-title" hidden>
+      <h2 id="assignment-title" tabindex="-1"></h2>
+      <p class="preview-instruction" id="assignment-brief"></p>
+      <h3>Shot plan</h3>
+      <ol id="assignment-shots"></ol>
+      <fieldset class="assignment-review">
+        <legend>Self-review checklist</legend>
+        <p>Play back your sequence and tick each item you can see in your footage.</p>
+        <div id="assignment-checks"></div>
+        <p id="assignment-status" role="status"></p>
+      </fieldset>
     </section>
     <footer class="preview-footer">
       <a href="contact.html">Ask about enrolment ↗</a>
