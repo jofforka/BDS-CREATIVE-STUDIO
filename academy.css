@@ -22,3 +22,17 @@
 .preview-curriculum details p { margin: 0; padding: 0 1rem 1.1rem; color: #dfd3c1; line-height: 1.65; }
 .preview-footer { display: flex; flex-wrap: wrap; gap: 1rem 2rem; padding: 1.5rem 0; }
 .academy-preview [hidden] { display: none; }
+
+.academy-catalog .academy-eyebrow { color: #725022; }
+.academy-heading label { width: min(100%, 24rem); font-weight: 700; }
+.academy-search { box-sizing: border-box; margin-top: .45rem; }
+.academy-categories[hidden] { display: none; }
+.academy-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
+.academy-course { display: flex; flex-direction: column; box-shadow: 0 10px 30px #38291312; }
+.academy-course-body { display: flex; flex: 1; flex-direction: column; }
+.academy-course-body small { color: #725022; font-weight: 700; }
+.academy-course-body a { align-self: flex-start; margin-top: auto; text-underline-offset: .2em; }
+@media (max-width: 480px) {
+  .academy-hero h1 { font-size: clamp(2.7rem, 11vw, 3.5rem); }
+  .academy-catalog { padding-block: 3rem; }
+}
