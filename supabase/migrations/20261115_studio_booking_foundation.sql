@@ -1,7 +1,7 @@
 -- BDS booking foundation: apply only after reviewing in a dedicated Supabase project.
 -- Never expose service_role keys in the browser.
 create extension if not exists pgcrypto;
-create extension if not exists btree_gist;
+create extension if not exists btree_gist with schema extensions;
 create table if not exists public.studio_services (
  id uuid primary key default gen_random_uuid(),
  name text not null unique,

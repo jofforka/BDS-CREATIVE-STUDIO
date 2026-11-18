@@ -13,7 +13,7 @@ as $$
    and course.status = 'published'
  limit 1
 $$;
-revoke all on function public.academy_verify_certificate(text) from public;
+revoke all on function public.academy_verify_certificate(text) from public, anon, authenticated;
 -- Do not grant execute to anon/authenticated until abuse controls, audit logging,
 -- explicit public verification consent and a rate-limited API gateway exist.
 -- A trusted server endpoint may call the function with a privileged role after
