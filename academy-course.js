@@ -171,6 +171,7 @@
     summary.textContent = course.summary;
     category.textContent = course.category;
     category.hidden = false;
+    document.getElementById('full-course-invitation').hidden = course.slug !== 'demo-cinematography';
     renderAssignment(course.assignment);
     renderLessons(course.previewLessons);
   }
