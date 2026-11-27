@@ -1,0 +1,27 @@
+/* Visual experience — mobile-first service selection */
+.bds-booking{background:#111;color:#f6f0e5}
+.bds-booking .booking-main{max-width:1080px}
+.bds-booking .booking-form{background:#1c1c1c;border:1px solid #ffffff20;color:#f6f0e5;border-radius:22px}
+.bds-booking .booking-form h3{color:#f6f0e5}
+.experience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:12px 0 24px}
+.experience-card{position:relative;display:flex;align-items:end;min-height:155px;aspect-ratio:4/3;overflow:hidden;border:2px solid transparent;border-radius:16px;background-color:#322a22;background-size:cover;background-position:center;color:#fff;text-align:left;padding:12px;cursor:pointer;isolation:isolate}
+.experience-card:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#080808e8,transparent 85%);z-index:-1}
+.experience-card span{font-weight:700;font-size:clamp(13px,2vw,18px);line-height:1.25}
+.experience-card[aria-pressed=true]{border-color:#e4bc7b;box-shadow:0 0 0 2px #e4bc7b44}
+.experience-card[aria-pressed=true]:after{content:"✓";position:absolute;right:8px;top:8px;background:#e4bc7b;color:#111;border-radius:50%;width:25px;height:25px;display:grid;place-items:center}
+.experience-photo{background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=640&q=80')}
+.experience-audio{background-image:url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=640&q=80')}
+.experience-content,.experience-film{background-image:url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=640&q=80')}
+.experience-wedding{background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=640&q=80')}
+.experience-brand,.experience-academy{background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=640&q=80')}
+.bds-booking .experience-step{border-top:1px solid #ffffff22;padding-top:20px;margin-top:20px;font-size:19px}
+.bds-booking .booking-form input:not([type=checkbox]),.bds-booking .booking-form select,.bds-booking .booking-form textarea{background:#161616;color:#fff;border:1px solid #ffffff30;border-radius:10px;min-height:48px;font-size:16px;color-scheme:dark}
+.bds-booking #checkout-whatsapp{background:#147d46;color:#fff;border-color:#147d46;min-height:52px}
+.bds-booking #package-price{color:#e4bc7b;font-weight:700}
+.bds-booking .form-note{color:#c8c0b4}
+.home-experiences{background:#171717;color:#f6f0e5;padding:clamp(30px,6vw,80px) clamp(20px,6vw,90px)}
+.home-experiences h2{font-size:clamp(28px,5vw,56px);margin:0 0 20px;letter-spacing:-.05em}
+.home-experiences .experience-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.home-experiences .experience-card{text-decoration:none}
+@media(max-width:700px){.home-experiences .experience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.experience-card{min-height:120px;padding:10px}.experience-grid{gap:10px}}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.experience-card{transition:transform .3s,border-color .3s}.experience-card:hover{transform:translateY(-3px);border-color:#e4bc7b}}
