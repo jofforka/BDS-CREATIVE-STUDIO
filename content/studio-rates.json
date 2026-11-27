@@ -1,0 +1,113 @@
+{
+  "currency": "NGN",
+  "packages": [
+    {
+      "category": "Audio Recording & Production",
+      "name": "Beat / Instrumental",
+      "price": 50000,
+      "details": "Custom beat; buyout or leasing terms to be confirmed"
+    },
+    {
+      "category": "Audio Recording & Production",
+      "name": "Mixing",
+      "price": 60000,
+      "details": "Stems; 2 revisions; 3+ tracks quoted separately"
+    },
+    {
+      "category": "Audio Recording & Production",
+      "name": "Single Mastering",
+      "price": 20000,
+      "details": "Streaming-ready WAV and MP3; revisions"
+    },
+    {
+      "category": "Audio Recording & Production",
+      "name": "Stem Mastering",
+      "price": 30000,
+      "details": "Streaming-ready WAV and MP3; revisions"
+    },
+    {
+      "category": "Audio Recording & Production",
+      "name": "Full Production",
+      "price": 100000,
+      "details": "Custom beat, vocal tracking and final mix"
+    },
+    {
+      "category": "Audio Recording & Production",
+      "name": "Studio Lockout",
+      "price": 200000,
+      "details": "Daily studio rental; bring your own engineer"
+    },
+    {
+      "category": "Content Studio",
+      "name": "30 minutes",
+      "price": 15000,
+      "details": "30-minute session"
+    },
+    {
+      "category": "Content Studio",
+      "name": "1 hour",
+      "price": 25000,
+      "details": "1-hour session"
+    },
+    {
+      "category": "Content Studio",
+      "name": "1 hour with all props",
+      "price": 30000,
+      "details": "1-hour session with all props"
+    },
+    {
+      "category": "Photography",
+      "name": "Indoor — 1 outfit",
+      "price": 35000,
+      "details": "5 soft copies"
+    },
+    {
+      "category": "Photography",
+      "name": "Indoor — 2 outfits",
+      "price": 40000,
+      "details": "8 soft copies"
+    },
+    {
+      "category": "Photography",
+      "name": "Indoor — 3 outfits",
+      "price": 45000,
+      "details": "10 soft copies"
+    },
+    {
+      "category": "Photography",
+      "name": "Outdoor — 2 outfits",
+      "price": 45000,
+      "details": "5 soft copies"
+    },
+    {
+      "category": "Photography",
+      "name": "Outdoor — 3 outfits",
+      "price": 50000,
+      "details": "8 soft copies"
+    },
+    {
+      "category": "Pre-wedding Photography",
+      "name": "Indoor — 2 outfits",
+      "price": 50000,
+      "details": "5 soft copies"
+    },
+    {
+      "category": "Pre-wedding Photography",
+      "name": "Indoor — 3 outfits",
+      "price": 70000,
+      "details": "8 soft copies"
+    },
+    {
+      "category": "Pre-wedding Photography",
+      "name": "Outdoor — 2 outfits",
+      "price": 55000,
+      "details": "5 soft copies"
+    },
+    {
+      "category": "Pre-wedding Photography",
+      "name": "Outdoor — 3 outfits",
+      "price": 75000,
+      "details": "8 soft copies"
+    }
+  ]
+}
