@@ -5,7 +5,7 @@
   if (!section || !['photography','film','sound'].includes(department)) return;
   const heroVisual = document.querySelector('.showcase-visual');
   const allowedTypes = {photography:['image'],film:['video','image'],sound:['audio','video','image']};
-  const safeMedia = value => typeof value === 'string' && (/^assets\/portfolio\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp|mp4|mp3|ogg)$/i.test(value) || /^https:\/\/[^\s]+$/i.test(value));
+  const safeMedia = value => typeof value === 'string' && (/^assets\/(?:portfolio|imagery)\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp|mp4|mp3|ogg)$/i.test(value) || /^https:\/\/[^\s]+$/i.test(value));
   const safeExternal = value => {
     if (typeof value !== 'string') return null;
     try {const url = new URL(value);return url.protocol === 'https:' && url.username === '' && url.password === '' ? url.href : null;} catch {return null;}
@@ -33,7 +33,7 @@
   const displayProject = project => {
     viewerContent.replaceChildren();
     const media=mediaFor(project);if(media)viewerContent.append(media);
-    if(project.demo===true)viewerContent.append(make('p','viewer-demo-label','SAMPLE MEDIA — NOT BDS WORK'));viewerContent.append(make('h2','',project.title));
+    if(project.demo===true)viewerContent.append(make('p','viewer-demo-label','Concept media'));viewerContent.append(make('h2','',project.title));
     if(project.description)viewerContent.append(make('p','',project.description));
     const url=safeExternal(project.sourceUrl);
     if(url){const link=make('a','source-link','View original publication ↗');link.href=url;link.target='_blank';link.rel='noopener noreferrer';viewerContent.append(link);}
@@ -56,7 +56,7 @@
         gallery.replaceChildren();
         projects.filter(p=>category==='All'||p.category===category).forEach(project=>{
           const card=make('button','portfolio-project');card.type='button';card.setAttribute('aria-label','Open '+project.title);
-          const frame=make('div','project-frame');const media=mediaFor(project,true);if(media)frame.append(media);if(project.demo===true)frame.append(make('span','demo-chip','SAMPLE · NOT BDS WORK'));
+          const frame=make('div','project-frame');const media=mediaFor(project,true);if(media)frame.append(media);if(project.demo===true)frame.append(make('span','demo-chip','Concept'));
           const details=make('div','project-details');details.append(make('span','',project.category||department),make('strong','',project.title),make('span','',''));
           details.lastElementChild.textContent='↗';card.append(frame,details);card.addEventListener('click',()=>displayProject(project));gallery.append(card);
         });
@@ -69,10 +69,6 @@
       heroVisual.removeAttribute('role');
       heroVisual.removeAttribute('aria-label');
       heroVisual.append(gallery,filters);
-      if(projects.some(p=>p.demo===true)){
-        const note=make('p','hero-demo-note','PORTFOLIO PREVIEW · SOME MEDIA IS DEMONSTRATION CONTENT, NOT BDS CLIENT WORK');
-        heroVisual.append(note);
-      }
       show('All');
     }
   };

@@ -37,7 +37,6 @@
 
 /* A department's selected main image is the hero fallback behind its globe. */
 .showcase-visual.has-custom-hero:not(.has-portfolio){background-position:center;background-size:cover}
-.showcase-visual.has-portfolio .hero-demo-note{font-size:10px;line-height:1.45;color:#e6c89c;text-align:center;letter-spacing:.065em;margin:8px 0 0}
 
 /* Display the selected main image as a subtle photographic foundation behind the rotating globe. */
 .showcase-visual.has-portfolio.has-custom-hero{background-color:#15110d;background-size:cover;background-position:center}

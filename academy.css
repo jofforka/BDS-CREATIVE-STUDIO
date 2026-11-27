@@ -73,3 +73,4 @@
 @media (max-width: 480px) {
   .example-grid:not(.example-grid-pair) { grid-template-columns: minmax(0, 1fr); }
 }
+.academy-page .academy-hero{background:linear-gradient(90deg,#0d0b09 6%,#0d0b09d9 50%,#0d0b094d),url("assets/imagery/academy.webp") right 42%/cover no-repeat}
