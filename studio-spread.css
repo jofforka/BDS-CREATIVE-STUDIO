@@ -1,0 +1,70 @@
+/* The studio spread uses a wide lead photograph and smaller supporting frames. */
+.studio-home .home-experiences {
+  padding-top: clamp(48px, 7vw, 100px);
+  background: #f5eee0;
+  color: #221911;
+}
+.studio-home .home-experiences h2 {
+  padding-bottom: clamp(15px, 2.2vw, 30px);
+  border-bottom: 1px solid #9f764966;
+  font: 400 clamp(2.6rem, 6.5vw, 6.2rem)/.98 Georgia, 'Times New Roman', serif;
+  letter-spacing: -.065em;
+}
+.studio-home .experience-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(23px, 3vw, 46px) clamp(12px, 2vw, 28px);
+  margin-top: clamp(20px, 3vw, 42px);
+}
+.studio-home .experience-card {
+  --print-ratio: 3 / 2;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  transition: color .2s;
+  min-width: 0;
+}
+.studio-home .experience-card:hover { color: #775021; transform: none; }
+.studio-home .experience-card:focus-visible { outline-color: #775021; }
+.studio-home .studio-print {
+  position: relative;
+  width: 100%;
+  display: block;
+  padding: 4px 4px 12px;
+  background: #211810;
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 0 100%);
+}
+.studio-home .studio-print::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 4px;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, #e9cc92 0 5px, transparent 5px 12px);
+  opacity: .72;
+}
+.studio-home .studio-print img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--print-ratio);
+  object-fit: cover;
+  border-radius: 0;
+}
+.studio-home .experience-card .studio-caption {
+  width: 100%;
+  padding: 10px 0 9px;
+  border-bottom: 1px solid #9f76495e;
+  font-size: clamp(.95rem, 1.5vw, 1.3rem);
+  letter-spacing: -.02em;
+}
+.studio-home .experience-photo,
+.studio-home .experience-academy { --print-ratio: 3 / 1; grid-column: span 2; }
+.studio-home .experience-photo img { object-position: center 43%; }
+.studio-home .experience-academy img { object-position: center 39%; }
+@media (max-width: 700px) {
+  .studio-home .experience-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .studio-home .experience-photo { --print-ratio: 16 / 9; }
+  .studio-home .experience-academy { --print-ratio: 3 / 2; grid-column: auto; }
+}

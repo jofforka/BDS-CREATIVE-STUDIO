@@ -56,7 +56,8 @@
   const service = services[key];
   const gallery = document.querySelector('.service-gallery');
   const rotor = gallery.querySelector('.service-rotor');
-  const control = gallery.querySelector('.studio-pause');
+  const backdrop = 'assets/imagery/' + service.frames[0] + '-480.webp';
+  gallery.closest('.service-feature').style.setProperty('--service-backdrop', 'url(' + backdrop + ')');
   document.title = service.title + ' | BDS Creative Studios';
   document.querySelector('#service-title').textContent = service.title;
   document.querySelector('#service-description').textContent = service.description;
@@ -71,8 +72,15 @@
   }
 
   service.frames.forEach((frame, index) => {
+    const panel = document.createElement('figure');
+    panel.className = 'service-frame';
+    const elevations = [0, -48, 38, -36, 44];
+    panel.style.setProperty('--frame-angle', index * 360 / service.frames.length + 'deg');
+    panel.style.setProperty('--frame-rise', elevations[index] + 'px');
+    panel.style.setProperty('--frame-rise-mobile', elevations[index] * .55 + 'px');
+    panel.style.setProperty('--frame-pitch', [0, -12, 9, -8, 11][index] + 'deg');
+    panel.style.setProperty('--frame-roll', [-8, 9, -10, 10, 7][index] + 'deg');
     const image = document.createElement('img');
-    image.className = 'service-frame';
     image.alt = '';
     image.width = 960;
     image.height = 640;
@@ -80,9 +88,9 @@
     image.srcset = 'assets/imagery/' + frame + '-480.webp 480w, assets/imagery/' + frame + '.webp 960w';
     image.sizes = '(max-width: 700px) 62vw, 480px';
     image.src = 'assets/imagery/' + frame + '-480.webp';
-    image.style.setProperty('--frame-angle', index * 360 / service.frames.length + 'deg');
     if (index === 0) image.fetchPriority = 'high';
-    rotor.append(image);
+    panel.append(image);
+    rotor.append(panel);
   });
   gallery.hidden = false;
 

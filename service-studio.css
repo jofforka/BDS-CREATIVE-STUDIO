@@ -120,3 +120,137 @@
 }
 
 .studio-pause[hidden] { display: none; }
+
+.service-feature {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  gap: clamp(10px, 2vw, 32px);
+  background: #100d0b;
+}
+.service-feature::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: var(--service-backdrop, none) 80% 45% / cover no-repeat;
+  filter: blur(17px) saturate(.75);
+  opacity: .38;
+  transform: scale(1.05);
+}
+.service-feature::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg,#100d0bf2,#100d0ba8 40%,#100d0b00 74%),
+              linear-gradient(0deg,#100d0b 0%,transparent 31%,transparent 67%,#100d0b9e 100%);
+}
+.service-intro { position: relative; z-index: 1; }
+.service-intro h1 {
+  font: 400 clamp(3.2rem, 6.5vw, 6.2rem)/.96 Georgia, 'Times New Roman', serif;
+  letter-spacing: -.055em;
+}
+.service-gallery {
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+.service-stage {
+  position: relative;
+  height: clamp(340px, 36vw, 505px);
+  overflow: visible;
+  touch-action: pan-y pinch-zoom;
+  perspective: 930px;
+}
+.service-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0 -6%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 52% 56%,#d897504b,transparent 58%);
+}
+.service-optics {
+  position: absolute;
+  inset: 7% 5% 3%;
+  pointer-events: none;
+}
+.service-optics::before, .service-optics::after {
+  content: "";
+  position: absolute;
+  inset: 11% 3%;
+  border: 1px solid #e8b56580;
+  border-radius: 50%;
+  box-shadow: 0 0 22px #f0a34a36,inset 0 0 26px #f0a34a25;
+  transform: rotate(-27deg) scaleY(.66);
+}
+.service-optics::after {
+  inset: 7% 11%;
+  border-color: #f6d29a67;
+  transform: rotate(38deg) scaleY(.7);
+}
+.service-frame {
+  top: calc(48% + var(--frame-rise));
+  transform: translate(-50%, -50%) rotateY(var(--frame-angle)) translateZ(var(--orbit-radius)) rotateX(var(--frame-pitch)) rotateZ(var(--frame-roll));
+  border: 1px solid #e5b977a6;
+  border-radius: 4px;
+  margin: 0;
+  padding: 5px 5px 12px;
+  background: #1a120e;
+  box-shadow: 0 16px 34px #080402bd;
+}
+.service-frame::after {
+  content: "";
+  position: absolute;
+  inset: auto 5px 4px;
+  height: 4px;
+  background: repeating-linear-gradient(90deg,#e5b977b5 0 5px,transparent 5px 12px);
+}
+.service-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 1px;
+}
+.studio-pause {
+  min-height: 44px;
+  padding: 7px 16px;
+  margin: -4px auto 0;
+  border: 1px solid #e7bd7e75;
+  border-radius: 100px;
+  background: #140e0ccf;
+  text-decoration: none;
+}
+.studio-pause::before {
+  display: inline-block;
+  content: "";
+  width: 8px;
+  height: 9px;
+  margin-right: 9px;
+  border-inline: 2px solid #eac084;
+}
+.service-gallery.is-motion-paused .studio-pause::before {
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-left: 8px solid #eac084;
+  border-right: 0;
+}
+.service-booking {
+  background: #f5eee0;
+  border-top: 1px solid #b38c56;
+}
+.service-booking h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+@media (max-width: 700px) {
+  .service-feature { gap: 8px; padding-block: 28px 26px; }
+  .service-feature::after {
+    background: linear-gradient(180deg,#100d0be6 0%,#100d0b88 35%,#100d0b25 57%,#100d0be6 100%);
+  }
+  .service-intro h1 { font-size: clamp(2.65rem, 12.5vw, 4.25rem); }
+  .service-stage { height: clamp(245px, 69vw, 330px); perspective: 570px; }
+  .service-stage::before { inset: 0 -8%; }
+  .service-optics { inset: 4% -3%; }
+  .service-frame { --frame-rise: 0px; top: calc(47% + var(--frame-rise-mobile)); }
+}
