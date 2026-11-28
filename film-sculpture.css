@@ -1,0 +1,121 @@
+/* The film sculpture is decorative. Its stage is separate from the headline and focus order. */
+.studio-home .hero {
+  isolation: isolate;
+  background: #0b0b0b;
+}
+.studio-home .hero-photo img {
+  opacity: .43;
+  filter: saturate(.74);
+}
+.studio-home .hero-vignette {
+  background: linear-gradient(90deg, #080808f0 3%, #080808b0 33%, #08080825 79%),
+              linear-gradient(0deg, #080808 0%, transparent 39%);
+}
+.studio-home .hero-inner { pointer-events: none; }
+.studio-home .hero-inner a { pointer-events: auto; }
+.studio-home #hero-heading { font-size: clamp(54px, 7.45vw, 124px); }
+.film-sculpture {
+  --film-size: clamp(315px, min(46vw, 71svh), 665px);
+  --film-depth: calc(var(--film-size) * .35);
+  position: absolute;
+  inset: 50% clamp(8px, 4vw, 78px) auto auto;
+  width: var(--film-size);
+  aspect-ratio: 1;
+  transform: translateY(-46%);
+  perspective: 1050px;
+  pointer-events: none;
+  z-index: 1;
+}
+.film-sculpture::before {
+  content: "";
+  position: absolute;
+  inset: -11%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #bf6d2c42, #6e341c33 42%, transparent 70%);
+}
+.film-sculpture::after {
+  content: "";
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  bottom: 2%;
+  height: 15%;
+  background: radial-gradient(ellipse at center, #e1a25452, #9b61361f 36%, transparent 66%);
+  transform: rotate(-8deg);
+}
+.film-gimbal, .film-rotor, .film-rail {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.film-gimbal {
+  transform: rotateX(-8deg) rotateZ(-13deg);
+}
+.film-rotor { transform: rotateY(-10deg); }
+.film-rail {
+  inset: 10%;
+  border: 1px solid #ffcd826b;
+  border-radius: 50%;
+  box-shadow: 0 0 25px #e8a2483b, inset 0 0 22px #e8a2482c;
+  transform: rotateX(72deg);
+}
+.film-rail:nth-child(2) { transform: rotateX(52deg) rotateY(54deg); border-color: #ffdca25c; }
+.film-rail:nth-child(3) { transform: rotateX(-55deg) rotateY(47deg); border-color: #ffddac99; }
+.film-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--film-size) * .39);
+  aspect-ratio: 1.6;
+  margin: 0;
+  padding: 5.1% 1.5%;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%) rotateY(var(--yaw)) rotateX(var(--pitch)) translateZ(var(--film-depth));
+  backface-visibility: hidden;
+  background: linear-gradient(#21150f, #0c0908);
+  border: 1px solid #d8ad679f;
+  border-radius: 5px;
+  box-shadow: 0 8px 22px #060302af;
+}
+.film-panel::before, .film-panel::after {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  height: 7%;
+  background: repeating-linear-gradient(90deg, #d8ad6795 0 4%, transparent 4% 10%);
+  border-radius: 1px;
+}
+.film-panel::before { top: 3%; }
+.film-panel::after { bottom: 3%; }
+.film-panel img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (prefers-reduced-motion: no-preference) {
+  .film-gimbal {
+    transform: rotateX(calc(-8deg + var(--film-tilt-x, 0deg))) rotateY(var(--film-tilt-y, 0deg)) rotateZ(-13deg);
+    transition: transform .55s cubic-bezier(.2,.75,.25,1);
+  }
+  .film-rotor { animation: film-sculpture-spin 24s linear infinite; }
+  .studio-home .is-motion-paused .film-rotor { animation-play-state: paused; }
+}
+@keyframes film-sculpture-spin {
+  from { transform: rotateY(-10deg); }
+  to { transform: rotateY(350deg); }
+}
+@media (max-width: 700px) {
+  .studio-home .hero { min-height: 0; max-height: none; height: auto; display: block; }
+  .studio-home .hero-inner { padding: 107px 22px 0; }
+  .studio-home #hero-heading { font-size: clamp(40px, 11vw, 72px); }
+  .studio-home .hero-photo img { object-position: 70% 43%; opacity: .31; }
+  .studio-home .hero-vignette {
+    background: linear-gradient(180deg, #08080845, #08080845 28%, #080808 93%);
+  }
+  .film-sculpture {
+    --film-size: min(85vw, 390px);
+    position: relative;
+    inset: auto;
+    margin: 0 auto 42px;
+    transform: none;
+    perspective: 680px;
+  }
+  .studio-home .bds-motion-control { bottom: 11px; }
+}

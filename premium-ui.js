@@ -26,7 +26,7 @@ nav?.querySelectorAll('a').forEach(link=>{
 
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const resetPointer = () => {
-    for (const name of ['--hero-shift-x','--hero-shift-y','--hero-light-x','--hero-light-y']) {
+    for (const name of ['--hero-shift-x','--hero-shift-y','--hero-light-x','--hero-light-y','--film-tilt-x','--film-tilt-y']) {
       hero.style.removeProperty(name);
     }
   };
@@ -39,6 +39,8 @@ nav?.querySelectorAll('a').forEach(link=>{
     hero.style.setProperty('--hero-shift-y', ((y - .5) * -14).toFixed(2) + 'px');
     hero.style.setProperty('--hero-light-x', (57 + x * 32).toFixed(1) + '%');
     hero.style.setProperty('--hero-light-y', (27 + y * 32).toFixed(1) + '%');
+    hero.style.setProperty('--film-tilt-x', ((.5 - y) * 18).toFixed(2) + 'deg');
+    hero.style.setProperty('--film-tilt-y', ((x - .5) * 23).toFixed(2) + 'deg');
   }, {passive:true});
   hero.addEventListener('pointerleave', resetPointer);
   hero.addEventListener('pointercancel', resetPointer);
