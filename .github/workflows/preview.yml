@@ -19,7 +19,7 @@ jobs:
           test -s booking.js
           test -s assets/bds-logo.png
       - name: Create preview bundle
-        run: zip -r bds-first-preview.zip index.html styles.css booking.html booking.css booking.js assets
+        run: zip -r bds-first-preview.zip *.html *.css *.js assets content
       - uses: actions/upload-artifact@v4
         with:
           name: bds-first-preview
