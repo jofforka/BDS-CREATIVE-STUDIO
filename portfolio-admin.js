@@ -15,7 +15,7 @@ const decode=base64=>new TextDecoder().decode(Uint8Array.from(atob(base64.replac
 const encode=text=>{const bytes=new TextEncoder().encode(text);let str='';for(let i=0;i<bytes.length;i+=8192)str+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(str)};
 const slug=()=>globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
 const cleanUrl=value=>{try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password?u.href:null}catch{return null}};
-const safeImage=value=>typeof value==='string' && (/^assets\/portfolio\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp)$/i.test(value) || (cleanUrl(value) && /\.(jpg|jpeg|png|webp)(\?|$)/i.test(value)));
+const safeImage=value=>typeof value==='string' && (/^assets\/(?:portfolio|imagery)\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp)$/i.test(value) || (cleanUrl(value) && /\.(jpg|jpeg|png|webp)(\?|$)/i.test(value)));
 const renderHero=()=>{const hero=data.departmentHeroes?.[$('hero-department').value]||{};$('hero-url').value=hero.media||'';$('hero-alt').value=hero.alt||'';$('hero-file').value='';};
 const reset=()=>{$('editor').reset();$('project-id').value='';$('media-url').value='';$('published').checked=true;$('save').textContent='Save project'};
 const render=()=>{
@@ -88,7 +88,7 @@ $('editor').addEventListener('submit',async event=>{
  if((department==='photography'&&type!=='image')||(department==='film'&&type==='audio')){msg('This media type is not supported in that department.',true);return}
  const file=$('media-file').files[0];let media=$('media-url').value.trim()||existing?.media||'';
  if(!file&&!media){msg('Choose a media file or enter a media URL.',true);return}
- if(!file&&!(/^assets\/portfolio\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp|mp4|mp3|ogg)$/i.test(media)||cleanUrl(media))){msg('Media must be a valid HTTPS URL or a portfolio asset.',true);return}
+ if(!file&&!(/^assets\/(?:portfolio|imagery)\/[a-z0-9/_-]+\.(jpg|jpeg|png|webp|mp4|mp3|ogg)$/i.test(media)||cleanUrl(media))){msg('Media must be a valid HTTPS URL or a portfolio asset.',true);return}
  busy=true;$('save').disabled=true;
  try{
   if(file){msg('Uploading media to GitHub…');media=await upload(file)}

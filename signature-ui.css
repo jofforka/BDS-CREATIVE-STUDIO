@@ -69,13 +69,6 @@ p{overflow-wrap:break-word}
 .hero-orbit{border-color:#e4bc7b55;animation:bds-halo 18s ease-in-out infinite alternate}
 .orbit-two{animation-direction:alternate-reverse}
 @keyframes bds-halo{from{transform:translate(-3%,0) rotate(-18deg) scaleX(.72)}to{transform:translate(5%,4%) rotate(22deg) scaleX(1)}}
-.hero #hero-heading .hero-motion-line,.hero #hero-heading .hero-motion-word{animation:none!important}
-.hero #hero-heading{perspective:900px}
-.hero #hero-heading .bds-letter{display:inline-block;transform-origin:center center;animation:bds-letter-orbit 9s ease-in-out infinite;animation-delay:calc(var(--letter-index)* -130ms)}
-@keyframes bds-letter-orbit{0%,18%,83%,100%{transform:none}35%{transform:translate3d(0,-.13em,25px) rotateY(-38deg) rotateX(18deg)}55%{transform:translate3d(0,.08em,-15px) rotateY(38deg) rotateX(-12deg)}70%{transform:translate3d(0,-.04em,10px) rotateY(-15deg)}}
-.bds-motion-off .bds-letter,.bds-motion-off .hero-orbit{animation:none!important;transform:none!important}
-.bds-motion-off .marquee-track{animation-play-state:paused!important}
-.bds-motion-control{position:absolute;right:24px;bottom:50px;z-index:5;border:1px solid #e4bc7b99;background:#100e0cdd;color:#f6f0e5;border-radius:40px;min-height:44px;padding:8px 16px;cursor:pointer;font:600 12px "DM Sans",sans-serif}
 .work-card{border-radius:18px;outline:1px solid #ffffff18;outline-offset:-1px}
 .work-card .round-arrow{background:#100e0c80;transition:background .3s,transform .3s}
 .work-card:hover .round-arrow,.work-card:focus-visible .round-arrow{background:var(--bds-luxe);color:#111;transform:rotate(12deg)}
@@ -84,5 +77,6 @@ p{overflow-wrap:break-word}
 .bds-booking .booking-form,.bds-admin .panel,.showcase-visual .orbit-stage{border-radius:20px;box-shadow:0 18px 60px #0002}
 .bds-booking input:not([type=checkbox]),.bds-booking select,.bds-admin input:not([type=checkbox]),.bds-admin select{min-height:48px;border-radius:10px;font-size:16px}
 .bds-booking .goldBtn,.bds-admin button{border-radius:30px}
-@media(max-width:700px){.hero{min-height:650px;height:auto;max-height:none}.hero-inner{padding:120px 22px 110px}.hero h1{font-size:clamp(44px,11.8vw,82px)}.hero-actions{gap:12px}.hero-actions .pill-button{min-height:52px}.bds-motion-control{right:20px;bottom:44px}.work-card{border-radius:14px}}
-@media(prefers-reduced-motion:reduce){.hero #hero-heading .bds-letter,.hero-orbit{animation:none!important;transform:none!important}.bds-motion-control{display:none}}
+@media(max-width:700px){.hero{min-height:650px;height:auto;max-height:none}.hero-inner{padding:120px 22px 110px}.hero h1{font-size:clamp(44px,11.8vw,82px)}.hero-actions{gap:12px}.hero-actions .pill-button{min-height:52px}.work-card{border-radius:14px}}
+
+.destination-hero h1,.academy-hero h1,.showcase-copy h1{word-spacing:.08em}

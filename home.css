@@ -1,0 +1,84 @@
+.studio-home .hero {
+  height: 88svh;
+  min-height: 570px;
+  max-height: 980px;
+}
+.studio-home .hero-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 67% center;
+}
+.studio-home .hero-vignette {
+  background: linear-gradient(90deg, #080808cf, #08080852 52%, #08080805 85%),
+              linear-gradient(0deg, #080808 0%, transparent 28%);
+}
+.studio-home .hero-orbit {
+  opacity: .3;
+  animation: none;
+}
+.studio-home #hero-heading {
+  width: fit-content;
+  font-size: clamp(54px, 8.4vw, 138px);
+  letter-spacing: -.068em;
+  word-spacing: .075em;
+  transform-origin: left center;
+}
+.studio-home .hero-inner {
+  padding-bottom: 95px;
+}
+@media (max-width: 700px) {
+  .studio-home .hero {
+    height: 82svh;
+    min-height: 545px;
+  }
+  .studio-home .hero-inner {
+    padding: 100px 22px 75px;
+  }
+  .studio-home #hero-heading {
+    font-size: clamp(41px, 11.1vw, 75px);
+  }
+  .studio-home .hero-vignette {
+    background: linear-gradient(90deg, #080808bd, #08080845),
+                linear-gradient(0deg, #080808 0%, transparent 43%);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .studio-home .hero-photo img {
+    animation: studio-camera-drift 14s ease-out both;
+  }
+  .studio-home #hero-heading {
+    animation: studio-title-turn 5s ease-in-out both;
+  }
+}
+@keyframes studio-camera-drift {
+  from { transform: scale(1.065); }
+  to { transform: scale(1); }
+}
+@keyframes studio-title-turn {
+  0%, 12%, 100% { transform: none; }
+  42% { transform: perspective(1050px) rotateY(-10deg) rotateX(3deg); }
+  72% { transform: perspective(1050px) rotateY(6deg) rotateX(-2deg); }
+}
+
+.bds-motion-control {
+  position: absolute;
+  z-index: 3;
+  right: clamp(22px, 5vw, 90px);
+  bottom: 48px;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 1px solid #d8ad6799;
+  border-radius: 24px;
+  background: #100e0ce6;
+  color: #f6f0e5;
+  cursor: pointer;
+}
+.studio-home .is-motion-paused #hero-heading,
+.studio-home .is-motion-paused .hero-photo img {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bds-motion-control { display: none; }
+}
