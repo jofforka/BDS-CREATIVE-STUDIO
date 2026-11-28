@@ -30,3 +30,12 @@ jobs:
           assert "departmentHeroes" in js and "heroVisual.append(gallery,filters)" in js
           print("Department hero structure checks passed.")
           PY
+      - name: Verify Academy models and database contracts
+        run: |
+          node scripts/test_academy_course_model.cjs
+          python3 scripts/audit_academy_release.py
+          python3 scripts/test_academy_schema_contracts.py
+      - name: Exercise operations and RLS on a clean PostgreSQL schema
+        run: |
+          npm install --prefix "${RUNNER_TEMP}/bds-db-tests" --no-audit --no-fund @electric-sql/pglite@0.6.1
+          NODE_PATH="${RUNNER_TEMP}/bds-db-tests/node_modules" node scripts/test_studio_database.cjs

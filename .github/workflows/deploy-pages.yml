@@ -3,67 +3,13 @@ on:
   push:
     branches: [main]
     paths:
-      - 'index.html'
-      - 'brand.html'
-      - 'academy.html'
-      - 'academy-resources.html'
-      - 'academy-resources.js'
-      - 'academy-assessments.html'
-      - 'academy-assessments.js'
-      - 'academy-instructor.html'
-      - 'academy-instructor.js'
-      - 'academy-workspace.html'
-      - 'academy-workspace.css'
-      - 'academy-workspace.js'
-      - 'academy-course-model.js'
-      - 'academy-learn.html'
-      - 'academy-learn.css'
-      - 'academy-learn.js'
-      - 'academy-verify.html'
-      - 'academy-verify.css'
-      - 'academy-verify.js'
-      - 'scripts/test_academy_course_model.cjs'
-      - 'academy-portal.html'
-      - 'academy-portal.css'
-      - 'academy-portal.js'
-      - 'academy-config.js'
-      - 'academy-course.html'
-      - 'academy.css'
-      - 'academy.js'
-      - 'academy-course.js'
-      - 'contact.html'
-      - 'destination.css'
-      - 'photography.html'
-      - 'film.html'
-      - 'sound.html'
-      - 'showcase.css'
-      - 'hero-globe.css'
-      - 'showcase.js'
-      - 'portfolio.js'
-      - 'portfolio-admin.html'
-      - 'portfolio-admin.js'
-      - 'portfolio-admin.css'
-      - 'orbit-gallery.js'
+      - '*.html'
+      - '*.css'
+      - '*.js'
       - 'content/**'
-      - 'scripts/validate_site.py'
-      - 'scripts/audit_academy_release.py'
-      - 'scripts/test_academy_schema_contracts.py'
-      - 'showcase-data.js'
-      - 'styles.css'
-      - 'cinematic.css'
-      - 'cinematic.js'
-      - 'premium-ui.css'
-      - 'signature-ui.css'
-      - 'marquee-fix.css'
-      - 'compact-layout.css'
-      - 'premium-ui.js'
-      - 'premium-booking-admin.css'
-      - 'premium-booking-admin.js'
-      - 'booking.html'
-      - 'booking.css'
-      - 'booking-premium.css'
-      - 'booking.js'
       - 'assets/**'
+      - 'scripts/**'
+      - 'supabase/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 permissions:
@@ -154,11 +100,8 @@ jobs:
       - name: Stage only public assets
         run: |
           mkdir -p public
-          cp index.html brand.html academy.html academy-resources.html academy-resources.js academy-assessments.html academy-assessments.js academy-instructor.html academy-instructor.js academy-workspace.html academy-workspace.css academy-workspace.js academy-course-model.js academy-learn.html academy-learn.css academy-learn.js academy-verify.html academy-verify.css academy-verify.js academy-course.html academy-portal.html academy-portal.css academy-portal.js academy-config.js academy.css academy.js academy-course.js contact.html destination.css styles.css cinematic.css cinematic.js premium-ui.css signature-ui.css marquee-fix.css compact-layout.css premium-ui.js premium-booking-admin.css premium-booking-admin.js booking.html booking.css booking-premium.css booking.js public/
-          cp photography.html film.html sound.html showcase.css hero-globe.css showcase.js showcase-data.js portfolio.js orbit-gallery.js portfolio-admin.html portfolio-admin.js portfolio-admin.css public/
-          mkdir -p public/content
-          cp content/portfolio.json content/academy-catalog.json public/content/
-          cp -R assets public/
+          cp -- *.html *.css *.js public/
+          cp -R -- assets content public/
           touch public/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
