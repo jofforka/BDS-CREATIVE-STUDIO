@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b0b">
+  <title>Inside the studio | BDS Creative Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="cinematic.css">
+  <link rel="stylesheet" href="studio.css">
+  <link rel="stylesheet" href="service-studio.css">
+  <script src="service-studio.js" defer></script>
+</head>
+<body class="service-studio">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="studio-masthead">
+    <a class="brand" href="index.html" aria-label="BDS Creative Studios home">
+      <img src="assets/bds-logo.png" alt="">
+      <span>BDS<span class="brand-sub">CREATIVE STUDIOS</span></span>
+    </a>
+    <a class="studio-back" href="index.html#expertise">All services</a>
+  </header>
+  <main id="main">
+    <section class="service-feature" aria-labelledby="service-title">
+      <div class="service-intro">
+        <h1 id="service-title">Inside the studio</h1>
+        <p id="service-description">Explore photography, film, sound and creative production at BDS.</p>
+      </div>
+      <div class="service-gallery" id="service-gallery" hidden>
+        <div class="service-stage" aria-hidden="true">
+          <div class="service-rotor"></div>
+        </div>
+        <button type="button" class="studio-pause">Pause rotation</button>
+      </div>
+    </section>
+    <section class="service-booking" aria-labelledby="booking-title">
+      <h2 id="booking-title">Your session</h2>
+      <div class="service-actions">
+        <a class="studio-detail" hidden></a>
+        <a class="pill-button primary" id="studio-booking" href="booking.html">Book a session</a>
+      </div>
+    </section>
+  </main>
+  <footer class="studio-footer">
+    <span>© BDS Creative Studios</span>
+    <a href="contact.html">Contact</a>
+  </footer>
+</body>
+</html>

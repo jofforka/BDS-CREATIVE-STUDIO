@@ -23,8 +23,30 @@ nav?.querySelectorAll('a').forEach(link=>{
   button.className = 'bds-motion-control';
   button.textContent = 'Pause motion';
   hero.append(button);
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const resetPointer = () => {
+    for (const name of ['--hero-shift-x','--hero-shift-y','--hero-light-x','--hero-light-y']) {
+      hero.style.removeProperty(name);
+    }
+  };
+  hero.addEventListener('pointermove', event => {
+    if (reduceMotion.matches || hero.classList.contains('is-motion-paused')) return;
+    const bounds = hero.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    hero.style.setProperty('--hero-shift-x', ((x - .5) * -18).toFixed(2) + 'px');
+    hero.style.setProperty('--hero-shift-y', ((y - .5) * -14).toFixed(2) + 'px');
+    hero.style.setProperty('--hero-light-x', (57 + x * 32).toFixed(1) + '%');
+    hero.style.setProperty('--hero-light-y', (27 + y * 32).toFixed(1) + '%');
+  }, {passive:true});
+  hero.addEventListener('pointerleave', resetPointer);
+  hero.addEventListener('pointercancel', resetPointer);
+  reduceMotion.addEventListener('change', resetPointer);
+
   button.addEventListener('click', () => {
     const paused = hero.classList.toggle('is-motion-paused');
+    if (paused) resetPointer();
     button.textContent = paused ? 'Resume motion' : 'Pause motion';
   });
 })();
