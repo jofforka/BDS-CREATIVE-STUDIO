@@ -86,8 +86,4 @@
   });
   gallery.hidden = false;
 
-  control.addEventListener('click', () => {
-    const paused = gallery.classList.toggle('is-paused');
-    control.textContent = paused ? 'Resume rotation' : 'Pause rotation';
-  });
 })();

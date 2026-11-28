@@ -49,7 +49,10 @@
   border-radius: 8px;
 }
 .service-stage {
+  touch-action: pan-y;
+  cursor: grab;
   --orbit-radius: clamp(105px, 15vw, 225px);
+  --frame-width: clamp(128px, 20vw, 300px);
   height: clamp(300px, 32vw, 445px);
   perspective: 850px;
   perspective-origin: 50% 47%;
@@ -64,7 +67,7 @@
   position: absolute;
   left: 50%;
   top: 48%;
-  width: clamp(128px, 20vw, 300px);
+  width: var(--frame-width);
   height: auto;
   aspect-ratio: 3 / 2;
   object-fit: cover;
@@ -87,11 +90,6 @@
   text-decoration: underline;
   text-underline-offset: .28em;
 }
-@media (prefers-reduced-motion: no-preference) {
-  .service-rotor { animation: service-orbit 34s linear infinite; }
-  .service-gallery.is-paused .service-rotor { animation-play-state: paused; }
-}
-@keyframes service-orbit { to { transform: rotateY(-1turn); } }
 @media (prefers-reduced-motion: reduce) {
   .service-frame { display: none; }
   .service-frame:first-child {
@@ -99,7 +97,11 @@
     width: min(82%, 485px);
     transform: translate(-50%, -50%);
   }
-  .studio-pause { display: none; }
+  .service-gallery.is-motion-requested .service-frame { display: block; }
+  .service-gallery.is-motion-requested .service-frame:first-child {
+    width: var(--frame-width);
+    transform: translate(-50%, -50%) rotateY(var(--frame-angle)) translateZ(var(--orbit-radius));
+  }
 }
 .service-booking {
   display: flex;
@@ -127,5 +129,7 @@
   }
   .service-intro h1 { font-size: clamp(2.5rem, 10.5vw, 4rem); margin-bottom: 13px; }
   .service-stage { height: 255px; --orbit-radius: clamp(97px, 27vw, 160px); }
-  .service-frame { width: clamp(126px, 46vw, 240px); }
+  .service-stage { --frame-width: clamp(126px, 46vw, 240px); }
 }
+
+.studio-pause[hidden] { display: none; }

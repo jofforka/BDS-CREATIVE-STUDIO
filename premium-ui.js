@@ -18,20 +18,13 @@ nav?.querySelectorAll('a').forEach(link=>{
   const hero = document.querySelector('.studio-home .hero');
   if (!hero) return;
 
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = 'bds-motion-control';
-  button.textContent = 'Pause motion';
-  hero.append(button);
-
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const resetPointer = () => {
     for (const name of ['--hero-shift-x','--hero-shift-y','--hero-light-x','--hero-light-y','--film-tilt-x','--film-tilt-y']) {
       hero.style.removeProperty(name);
     }
   };
   hero.addEventListener('pointermove', event => {
-    if (reduceMotion.matches || hero.classList.contains('is-motion-paused')) return;
+    if (hero.dataset.motionState !== 'playing' || event.pointerType === 'touch') return;
     const bounds = hero.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width;
     const y = (event.clientY - bounds.top) / bounds.height;
@@ -44,11 +37,5 @@ nav?.querySelectorAll('a').forEach(link=>{
   }, {passive:true});
   hero.addEventListener('pointerleave', resetPointer);
   hero.addEventListener('pointercancel', resetPointer);
-  reduceMotion.addEventListener('change', resetPointer);
-
-  button.addEventListener('click', () => {
-    const paused = hero.classList.toggle('is-motion-paused');
-    if (paused) resetPointer();
-    button.textContent = paused ? 'Resume motion' : 'Pause motion';
-  });
+  hero.querySelector('[data-turntable-control]').addEventListener('click', resetPointer);
 })();
