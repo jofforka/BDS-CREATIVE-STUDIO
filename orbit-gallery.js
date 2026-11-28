@@ -6,11 +6,10 @@
   let stage, pauseButton;
   let cards = [];
   let angle = 0, lastFrame = 0;
-  let paused = false, requested = false, visible = true, dirty = true;
-  const motionEnabled = () => !reduce.matches || requested;
+  let paused = false, visible = true, dirty = true;
 
   function updateButton() {
-    if (pauseButton) pauseButton.textContent = !motionEnabled() ? 'Play rotation' : paused ? 'Resume rotation' : 'Pause rotation';
+    if (pauseButton) pauseButton.textContent = paused ? 'Resume rotation' : 'Pause rotation';
   }
 
   function position() {
@@ -36,9 +35,9 @@
   function animate(now) {
     const elapsed = lastFrame ? now - lastFrame : 0;
     lastFrame = now;
-    const moving = stage && !paused && motionEnabled() && visible && !document.hidden
+    const moving = stage && !paused && visible && !document.hidden
       && !stage.matches(':focus-within') && !document.querySelector('.portfolio-viewer[open]');
-    if (moving) angle = (angle + elapsed * .00025) % (2 * Math.PI);
+    if (moving) angle = (angle + elapsed * (reduce.matches ? .00015 : .00025)) % (2 * Math.PI);
     if (moving || dirty) position();
     requestAnimationFrame(animate);
   }
@@ -56,12 +55,7 @@
     pauseButton.className = 'orbit-control';
     updateButton();
     pauseButton.addEventListener('click', () => {
-      if (!motionEnabled()) {
-        requested = true;
-        paused = false;
-      } else {
-        paused = !paused;
-      }
+      paused = !paused;
       updateButton();
     });
     toolbar.append(pauseButton);
@@ -78,7 +72,6 @@
 
   new MutationObserver(setup).observe(gallery,{childList:true});
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(gallery);
-  reduce.addEventListener('change', () => { requested = false; updateButton(); });
   document.addEventListener('visibilitychange', () => { lastFrame = 0; });
   window.addEventListener('resize', () => { dirty = true; }, {passive:true});
   setup();

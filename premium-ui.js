@@ -18,13 +18,14 @@ nav?.querySelectorAll('a').forEach(link=>{
   const hero = document.querySelector('.studio-home .hero');
   if (!hero) return;
 
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const resetPointer = () => {
     for (const name of ['--hero-shift-x','--hero-shift-y','--hero-light-x','--hero-light-y','--film-tilt-x','--film-tilt-y']) {
       hero.style.removeProperty(name);
     }
   };
   hero.addEventListener('pointermove', event => {
-    if (hero.dataset.motionState !== 'playing' || event.pointerType === 'touch') return;
+    if (reduceMotion.matches || hero.dataset.motionState !== 'playing' || event.pointerType === 'touch') return;
     const bounds = hero.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width;
     const y = (event.clientY - bounds.top) / bounds.height;
@@ -37,5 +38,6 @@ nav?.querySelectorAll('a').forEach(link=>{
   }, {passive:true});
   hero.addEventListener('pointerleave', resetPointer);
   hero.addEventListener('pointercancel', resetPointer);
+  reduceMotion.addEventListener('change', resetPointer);
   hero.querySelector('[data-turntable-control]').addEventListener('click', resetPointer);
 })();
