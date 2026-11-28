@@ -90,19 +90,6 @@
   text-decoration: underline;
   text-underline-offset: .28em;
 }
-@media (prefers-reduced-motion: reduce) {
-  .service-frame { display: none; }
-  .service-frame:first-child {
-    display: block;
-    width: min(82%, 485px);
-    transform: translate(-50%, -50%);
-  }
-  .service-gallery.is-motion-requested .service-frame { display: block; }
-  .service-gallery.is-motion-requested .service-frame:first-child {
-    width: var(--frame-width);
-    transform: translate(-50%, -50%) rotateY(var(--frame-angle)) translateZ(var(--orbit-radius));
-  }
-}
 .service-booking {
   display: flex;
   align-items: center;

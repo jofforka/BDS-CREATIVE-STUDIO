@@ -96,23 +96,54 @@
     transition: transform .55s cubic-bezier(.2,.75,.25,1);
   }
 }
+
 @media (max-width: 700px) {
-  .studio-home .hero { min-height: 0; max-height: none; height: auto; display: block; }
-  .studio-home .hero-inner { padding: 107px 22px 0; }
-  .studio-home #hero-heading { font-size: clamp(40px, 11vw, 72px); }
+  .studio-home .hero {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    min-height: 0;
+    height: 100vh;
+    height: 100svh;
+    max-height: none;
+    align-items: start;
+    padding: 0 0 max(8px, env(safe-area-inset-bottom));
+  }
+  .studio-home .hero-inner { padding: clamp(79px, 12.5svh, 118px) 22px 0; }
+  .studio-home #hero-heading { margin: 6px 0 12px; font-size: clamp(37px, 10.2vw, 68px); }
+  .studio-home .hero-lead { margin: 0; line-height: 1.4; }
+  .studio-home .hero-actions { margin-top: 15px; }
+  .studio-home .hero-actions .pill-button { min-height: 44px; padding-block: 8px; }
   .studio-home .hero-photo img { object-position: 70% 43%; opacity: .31; }
   .studio-home .hero-vignette {
     background: linear-gradient(180deg, #08080845, #08080845 28%, #080808 93%);
   }
   .film-sculpture {
-    --film-size: min(85vw, 390px);
+    --film-size: min(84vw, 390px, max(135px, calc(100svh - 344px)));
     position: relative;
     inset: auto;
-    margin: 0 auto 42px;
+    margin: 0;
+    align-self: center;
+    justify-self: center;
     transform: none;
     perspective: 680px;
   }
-  .studio-home .bds-motion-control { bottom: 11px; }
+  .studio-home .bds-motion-control {
+    position: relative;
+    inset: auto;
+    justify-self: end;
+    margin-right: 22px;
+    min-height: 44px;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) and (hover: none) {
+  .studio-home .hero { height: 100svh; min-height: 0; }
+  .studio-home .hero-inner { padding-block: 72px 40px; }
+  .studio-home #hero-heading { font-size: clamp(35px, 6.5vw, 65px); margin-block: 6px 12px; }
+  .studio-home .hero-lead { margin-block: 0; }
+  .studio-home .hero-actions { margin-top: 12px; }
+  .film-sculpture { --film-size: min(43vw, 70svh); }
+  .studio-home .bds-motion-control { bottom: 5px; }
 }
 
 .bds-motion-control[hidden] { display: none; }
