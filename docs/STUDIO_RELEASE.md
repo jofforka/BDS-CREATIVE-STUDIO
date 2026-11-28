@@ -1,0 +1,18 @@
+# BDS operations release
+
+## Deploy
+
+1. Confirm the target Supabase project is `iujzlhjauqeycaqnmzrc`. Compare its migration ledger against `supabase/migrations`. The branch restores nine migrations already recorded remotely and aligns the Academy enrollment migration filename with the hosted ledger.
+2. For a fresh staging database, apply the repository migrations in version order. On the existing BDS project, check for `20261128124942` and `20261128125035` before applying anything. Those migrations were applied in the BDS project during this release. Never replay the historical migrations on that project.
+3. Run `node scripts/test_academy_course_model.cjs`, `python3 scripts/validate_site.py`, and the pull request checks. For the database suite, install `@electric-sql/pglite@0.6.1` in a temporary directory and point `NODE_PATH` at that directory's `node_modules` before running `node scripts/test_studio_database.cjs`. The SQL fixtures also run on Supabase inside rollback transactions.
+4. After review, merge the PR and check the GitHub Pages workflow. Confirm the published site includes the root HTML, CSS and JS files, the content JSON and existing assets.
+5. Sign in to Studio Administration, register the business's real resources and optionally assign branches. Grant staff only the permissions they need using existing Auth user IDs. Staff permissions apply across the studio workspace. Branch assignment records resource location.
+6. Create a real enquiry through WhatsApp checkout. Approve it with the actual package, agreed total, deposit and resources. An appointment with a deposit remains held until the verified amount reaches the deposit. Contact the customer using the existing WhatsApp conversation. Enter only independently verified transfers and mark reconciliation after matching the bank statement. Use Payment history to download the receipt. Verify cancellations and reschedules release the correct resources. Review paid cancellations for financial follow-up.
+7. To show a guest booking in customer history, confirm the customer's identity and link the Auth user with the verified enquiry email during approval. Never use an unverified account identifier. Guests can continue using the WhatsApp booking reference.
+8. For Academy, use an existing account with the Academy administrator role to create and publish actual course material. Upload lesson video through the course workspace using the existing studio administrator account and Academy admin role. Test enrollment, signing a private video URL, lesson completion, a quiz submission and certificate issuance. Public certificate verification remains gated by the existing privacy and rate-limit requirements.
+
+## Verification still required at release
+
+Run signed-in production smoke tests with designated studio admin, restricted staff, customer and student accounts. Check actual iPhone Safari and Android Chrome, concurrent requests through independent database sessions, real WhatsApp delivery, media upload and deletion through the Storage API, and recovery from a lost network response. The SQL exclusion constraint and rollback paths are exercised by the database suite. The checkout and admin screens keep the existing WhatsApp number and catalogue.
+
+Per-contact request throttling limits repeat submissions for a single number. Rotating contact abuse needs upstream rate limiting or a CAPTCHA if observed. Review held appointments after their start time and cancel stale holds before reusing the remainder of their reserved slot. Existing signed media URLs remain valid until their expiry. Private coursework upload cleanup, an instructor review screen, public certificate verification and payment refunds require separate release work.

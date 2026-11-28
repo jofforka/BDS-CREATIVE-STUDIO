@@ -1,0 +1,15 @@
+create table public.studio_admin_memberships (user_id uuid primary key references auth.users(id) on delete cascade, created_at timestamptz not null default now());
+alter table public.studio_admin_memberships enable row level security;
+revoke all on public.studio_admin_memberships from public, anon, authenticated;
+grant select on public.studio_admin_memberships to authenticated;
+create policy studio_admin_read_own_membership on public.studio_admin_memberships for select to authenticated using (user_id = (select auth.uid()));
+grant select, insert, update on public.studio_services to authenticated;
+create policy studio_admin_read_services on public.studio_services for select to authenticated using (exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
+create policy studio_admin_insert_quote_services on public.studio_services for insert to authenticated with check (booking_mode = 'quote' and exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
+create policy studio_admin_update_quote_services on public.studio_services for update to authenticated using (booking_mode = 'quote' and exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid()))) with check (booking_mode = 'quote' and exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
+grant select on public.studio_bookings, public.studio_payments, public.studio_quotes, public.studio_resources, public.studio_booking_resources to authenticated;
+create policy studio_admin_read_bookings on public.studio_bookings for select to authenticated using (exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
+create policy studio_admin_read_payments on public.studio_payments for select to authenticated using (exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
+create policy studio_admin_read_quotes on public.studio_quotes for select to authenticated using (exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
+create policy studio_admin_read_resources on public.studio_resources for select to authenticated using (exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
+create policy studio_admin_read_allocations on public.studio_booking_resources for select to authenticated using (exists (select 1 from public.studio_admin_memberships where user_id = (select auth.uid())));
