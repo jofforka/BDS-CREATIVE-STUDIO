@@ -38,3 +38,89 @@
 .experience-card:focus-visible{outline:2px solid #f1d4a3;outline-offset:3px}
 @media(max-width:1000px){.experience-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.experience-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.experience-card span{padding:10px}}
+
+/* Booking service picker. The native form select remains the source of truth. */
+.bds-booking .experience-picker[hidden],
+.bds-booking #service[hidden],
+.bds-booking label[for="service"][hidden],
+.bds-booking .experience-picker [hidden] { display: none; }
+.bds-booking .experience-picker { margin: 0 0 18px; }
+.bds-booking .experience-picker summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) 22px;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 7px 14px 7px 7px;
+  border: 1px solid #d8ad6773;
+  border-radius: 9px;
+  background: #17130f;
+  color: #f6f0e5;
+  cursor: pointer;
+}
+.bds-booking .experience-picker summary::-webkit-details-marker { display: none; }
+.bds-booking .experience-picker summary:focus-visible {
+  outline: 2px solid #f1d4a3;
+  outline-offset: 3px;
+}
+.bds-booking .experience-current-image {
+  display: block;
+  width: 62px;
+  aspect-ratio: 1.25;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #6b4924, #241a11 65%);
+  overflow: hidden;
+}
+.bds-booking .experience-current-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.bds-booking .experience-current-name { display: block; font-weight: 750; line-height: 1.25; }
+.bds-booking .experience-chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #e7be80;
+  border-bottom: 2px solid #e7be80;
+  transform: translateY(-2px) rotate(45deg);
+  justify-self: center;
+}
+.bds-booking .experience-picker[open] .experience-chevron { transform: translateY(2px) rotate(225deg); }
+.bds-booking .experience-picker[open] .experience-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  max-height: min(60vh, 444px);
+  padding: 6px;
+  margin: 7px 0 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #d8ad6740;
+  border-radius: 8px;
+  background: #15120f;
+}
+.bds-booking .experience-picker .experience-card {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 4px 28px 4px 4px;
+  border-color: transparent;
+  background: transparent;
+  border-radius: 5px;
+  transform: none;
+}
+.bds-booking .experience-picker .experience-card img { border-radius: 3px; }
+.bds-booking .experience-picker .experience-card span { padding: 0; }
+.bds-booking .experience-picker .experience-card[aria-pressed=true] {
+  background: #d8ad6721;
+  border-color: #d8ad6766;
+  box-shadow: none;
+}
+.bds-booking .experience-picker .experience-card[aria-pressed=true]::after {
+  inset: 50% 7px auto auto;
+  width: 19px;
+  transform: translateY(-50%);
+  font-size: 12px;
+}
+.bds-booking .experience-picker .experience-card:hover { border-color: #d8ad6773; }
+.bds-booking .experience-picker .experience-text-option span { grid-column: 2; }
+.bds-booking #experience-error { color: #f4cb9a; margin: 8px 0 0; }

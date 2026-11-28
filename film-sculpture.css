@@ -23,7 +23,8 @@
   aspect-ratio: 1;
   transform: translateY(-46%);
   perspective: 1050px;
-  pointer-events: none;
+  touch-action: pan-y;
+  cursor: grab;
   z-index: 1;
 }
 .film-sculpture::before {
@@ -94,12 +95,6 @@
     transform: rotateX(calc(-8deg + var(--film-tilt-x, 0deg))) rotateY(var(--film-tilt-y, 0deg)) rotateZ(-13deg);
     transition: transform .55s cubic-bezier(.2,.75,.25,1);
   }
-  .film-rotor { animation: film-sculpture-spin 24s linear infinite; }
-  .studio-home .is-motion-paused .film-rotor { animation-play-state: paused; }
-}
-@keyframes film-sculpture-spin {
-  from { transform: rotateY(-10deg); }
-  to { transform: rotateY(350deg); }
 }
 @media (max-width: 700px) {
   .studio-home .hero { min-height: 0; max-height: none; height: auto; display: block; }
@@ -119,3 +114,5 @@
   }
   .studio-home .bds-motion-control { bottom: 11px; }
 }
+
+.bds-motion-control[hidden] { display: none; }

@@ -68,9 +68,7 @@
 .studio-home .is-motion-paused .hero-photo img {
   animation-play-state: paused;
 }
-@media (prefers-reduced-motion: reduce) {
-  .bds-motion-control { display: none; }
-}
+
 
 .studio-home {
   --studio-gutter: clamp(22px, 6vw, 108px);
