@@ -1,0 +1,79 @@
+/* Shared public-site surfaces and controls. */
+.site-header, .showcase .site-header {
+  border-bottom-color: #f6f0e529;
+}
+.site-header .nav-cta, .pill-button {
+  border-radius: 6px;
+  min-height: 46px;
+  padding: 11px 17px;
+}
+.pill-button.primary:hover, .pill-button.primary:focus-visible {
+  box-shadow: none;
+  transform: none;
+}
+.site-footer {
+  border-top: 1px solid #f6f0e529;
+  background: #0b0b0b;
+}
+.showcase-copy h1, .destination-hero h1, .academy-hero h1 {
+  letter-spacing: -.055em;
+}
+.showcase-panel, .showcase-bottom, .destination-services {
+  padding-block: clamp(42px, 6vw, 82px);
+}
+.showcase-panel h2, .showcase-bottom h2, .destination-services h2 {
+  margin-block: 0 24px;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+}
+.showcase-visual.has-portfolio { background-image: none; }
+.showcase-visual.has-portfolio .portfolio-grid.orbit-stage,
+.showcase-visual.has-portfolio.has-custom-hero .portfolio-grid.orbit-stage { box-shadow: none; }
+.showcase-visual.has-portfolio .orbit-control,
+.showcase-visual.has-portfolio .filter-tabs button {
+  border-radius: 6px;
+  background: transparent;
+}
+.showcase-visual.has-portfolio .filter-tabs button[aria-pressed=true] {
+  background: var(--signature-gold);
+  color: #14100e;
+}
+.bds-booking .booking-form, .bds-booking .booking-info {
+  box-shadow: none;
+  border-radius: 8px;
+}
+.bds-booking .experience-card { border-radius: 6px; }
+.bds-booking .goldBtn, .bds-booking .ghostBtn { border-radius: 6px; }
+
+.showcase-visual.has-portfolio .orbit-control[hidden] { display: none; }
+.showcase-visual.has-portfolio .portfolio-grid:not(.orbit-stage) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: max-content;
+  gap: 10px;
+  max-height: clamp(300px, 33vw, 435px);
+  margin: 0;
+  padding: 6px;
+  overflow: auto;
+  scrollbar-color: #8b7659 #211c17;
+}
+.showcase-visual.has-portfolio .portfolio-grid:not(.orbit-stage) .portfolio-project {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  box-shadow: none;
+  border-radius: 5px;
+  border-color: #f6f0e529;
+  background: #191612;
+}
+.showcase-visual.has-portfolio .portfolio-grid:not(.orbit-stage) .project-frame {
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+@media (max-width: 700px) {
+  .showcase-visual.has-portfolio .portfolio-grid:not(.orbit-stage) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: 360px;
+  }
+}

@@ -3,7 +3,8 @@
   const gallery = document.querySelector('.showcase-visual');
   if (!gallery) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let stage = null, controls = null, angle = 0, last = 0, frame = 0, paused = reduce.matches;
+  let stage = null, controls = null, angle = 0, last = 0, frame = 0, paused = true;
+  let isOrbit = false;
   let cards = [], holding = false, visible = true, focused = false, dirty = true;
   const makeButton = (label, text) => {
     const button = document.createElement('button');
@@ -11,7 +12,7 @@
     button.setAttribute('aria-label',label);button.textContent = text;return button;
   };
   const position = () => {
-    if (!stage || !cards.length) return;
+    if (!isOrbit || !stage || !cards.length) return;
     dirty=false;
     const width=stage.clientWidth, height=stage.clientHeight;
     const radiusX=Math.min(width*.32,340), radiusY=Math.min(height*.32,175);
@@ -44,17 +45,39 @@
     const grid=gallery.querySelector('.portfolio-grid');
     if(!grid || grid===stage)return;
     if(stage)stage.classList.remove('orbit-stage');
-    stage=grid;stage.classList.add('orbit-stage');dirty=true;
+    stage=grid;
+    stage.classList.toggle('orbit-stage',isOrbit);dirty=true;
     if(controls)controls.remove();
     controls=document.createElement('div');controls.className='orbit-toolbar';
     const prev=makeButton('Rotate gallery left','←');
-    const pause=makeButton('Pause gallery rotation',paused?'Play rotation':'Pause rotation');
+    const pause=makeButton('Play gallery rotation','Play rotation');
     const next=makeButton('Rotate gallery right','→');
-    const status=document.createElement('span');status.textContent='ROTATING 3D GLOBE · SELECT ANY PROJECT TO EXPLORE';
     prev.addEventListener('click',()=>{angle-=Math.PI/3;dirty=true;position()});
     next.addEventListener('click',()=>{angle+=Math.PI/3;dirty=true;position()});
     pause.addEventListener('click',()=>{paused=!paused;pause.textContent=paused?'Play rotation':'Pause rotation';pause.setAttribute('aria-label',paused?'Play gallery rotation':'Pause gallery rotation')});
-    controls.append(prev,pause,next,status);stage.after(controls);
+    const view=makeButton('3D gallery view','3D view');
+    view.setAttribute('aria-pressed',String(isOrbit));
+    const rotation=[prev,pause,next];
+    rotation.forEach(button=>button.hidden=!isOrbit);
+    view.addEventListener('click',()=>{
+      isOrbit=!isOrbit;
+      stage.classList.toggle('orbit-stage',isOrbit);
+      view.setAttribute('aria-pressed',String(isOrbit));
+      rotation.forEach(button=>button.hidden=!isOrbit);
+      if(isOrbit){
+        dirty=true;
+        last=0;
+        position();
+        frame=requestAnimationFrame(animate);
+      }else{
+        cancelAnimationFrame(frame);
+        paused=true;
+        pause.textContent='Play rotation';
+        pause.setAttribute('aria-label','Play gallery rotation');
+        cards.forEach(card=>['transform','z-index','opacity','filter'].forEach(property=>card.style.removeProperty(property)));
+      }
+    });
+    controls.append(view,prev,pause,next);stage.after(controls);
     stage.addEventListener('pointerdown',()=>{holding=true});
     stage.addEventListener('focusin',()=>{focused=true});
     stage.addEventListener('focusout',()=>{focused=false});
@@ -67,9 +90,9 @@
   };
   const watch=new MutationObserver(()=>setup());
   watch.observe(gallery,{childList:true,subtree:false});
-  reduce.addEventListener?.('change',event=>{paused=event.matches;if(controls){const button=controls.children[1];button.textContent=paused?'Play rotation':'Pause rotation';button.setAttribute('aria-label',paused?'Play gallery rotation':'Pause gallery rotation')}});
+  reduce.addEventListener?.('change',event=>{if(!event.matches)return;paused=true;if(controls){const button=controls.children[2];button.textContent=paused?'Play rotation':'Pause rotation';button.setAttribute('aria-label',paused?'Play gallery rotation':'Pause gallery rotation')}});
   const visibilityObserver=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;dirty=true},{threshold:0});
   visibilityObserver.observe(gallery);
   window.addEventListener('resize',()=>{dirty=true;position()},{passive:true});
-  setup();frame=requestAnimationFrame(animate);
+  setup();
 })();
