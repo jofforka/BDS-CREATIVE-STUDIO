@@ -94,7 +94,26 @@ begin
   if not exists(select 1 from public.studio_finance_entries where id=payment_id and amount_kobo=2000) then
     raise exception 'Verified payment missing from finance';
   end if;
-  if (select count(*) from public.studio_operations_audit) <> 6 then raise exception 'Unexpected audit count'; end if;
+  perform public.studio_reconcile_payment(payment_id);
+  perform public.studio_reconcile_payment(payment_id);
+  if (select count(*) from public.studio_operations_audit where record_id in (booking_id,second_booking,payment_id)) <> 7 then
+    raise exception 'Unexpected audit count';
+  end if;
+end;
+$$;
+insert into public.studio_staff_access(user_id,schedule) values ('bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',true);
+select set_config('request.jwt.claim.sub','bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',true);
+do $$
+begin
+  if not public.studio_workspace_permission('schedule') or public.studio_workspace_permission('finance')
+     or public.studio_workspace_permission('payments') then raise exception 'Staff permissions are mis-scoped'; end if;
+  if not exists(select 1 from public.studio_enquiries where id='11111111-1111-4111-8111-111111111111')
+     or exists(select 1 from public.studio_operations_audit) then raise exception 'Staff RLS is mis-scoped'; end if;
+  begin
+    perform public.studio_record_expense(gen_random_uuid(),'Unauthorized expense',1000,current_date);
+    raise exception 'Schedule staff recorded an expense';
+  exception when insufficient_privilege then null;
+  end;
 end;
 $$;
 rollback;

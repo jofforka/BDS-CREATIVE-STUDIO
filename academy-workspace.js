@@ -19,6 +19,7 @@
   }
 
   function chooseCourse() {
+    $('academy-submissions').replaceChildren();
     const active = courses.find(row => row.id === course.value);
     module.replaceChildren(...(active?.academy_modules || []).map(row => new Option(row.title, row.id)));
     chooseModule();
@@ -107,4 +108,53 @@
       status.textContent = 'Course ' + state + '.';
     }));
   }
+  $('academy-load-submissions').addEventListener('click', () => run(async client => {
+    if (!course.value) throw Error('Select a course.');
+    const assessments = await client.from('academy_assessments').select('id,title')
+      .eq('course_id',course.value).eq('kind','assignment');
+    if (assessments.error) throw assessments.error;
+    const list = $('academy-submissions');
+    list.replaceChildren();
+    if (!assessments.data.length) { list.textContent = 'No assignments for this course.'; return; }
+    const names = new Map(assessments.data.map(row => [row.id,row.title]));
+    const submissions = await client.from('academy_assignment_submissions')
+      .select('id,assessment_id,student_id,submission_text,status,academy_assignment_reviews(grade_percent,feedback)')
+      .in('assessment_id',[...names.keys()]).order('submitted_at',{ascending:false});
+    if (submissions.error) throw submissions.error;
+    if (!submissions.data.length) list.textContent = 'No submissions yet.';
+    for (const row of submissions.data) {
+      const editor = document.createElement('form');
+      const heading = document.createElement('h4');
+      heading.textContent = names.get(row.assessment_id) + ' · ' + row.student_id;
+      const text = document.createElement('p');
+      text.textContent = row.submission_text;
+      const gradeLabel = document.createElement('label');
+      gradeLabel.textContent = 'Grade (%)';
+      const grade = document.createElement('input');
+      grade.type='number'; grade.min='0'; grade.max='100'; grade.step='0.01'; grade.required=true;
+      grade.value = row.academy_assignment_reviews?.grade_percent ?? '';
+      gradeLabel.append(grade);
+      const feedbackLabel = document.createElement('label');
+      feedbackLabel.textContent = 'Feedback';
+      const feedback = document.createElement('textarea');
+      feedback.maxLength = 10000;
+      feedback.value = row.academy_assignment_reviews?.feedback ?? '';
+      feedbackLabel.append(feedback);
+      const submit = document.createElement('button');
+      submit.type='submit'; submit.textContent='Save grade';
+      editor.append(heading,text,gradeLabel,feedbackLabel,submit);
+      editor.addEventListener('submit', event => {
+        event.preventDefault();
+        submit.disabled=true;
+        run(async activeClient => {
+          const result = await activeClient.rpc('academy_review_assignment',{
+            p_submission:row.id,p_grade:Number(grade.value),p_feedback:feedback.value
+          });
+          if(result.error)throw result.error;
+          status.textContent='Grade saved.';
+        }).finally(()=>{submit.disabled=false});
+      });
+      list.append(editor);
+    }
+  }));
 })();
