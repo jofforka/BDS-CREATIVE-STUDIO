@@ -1,0 +1,19 @@
+/* Responsive containment: preserve the cinematic composition without page overflow. */
+*,*::before,*::after{box-sizing:border-box}
+img,video,canvas,iframe{max-width:100%}
+@media(max-width:700px){
+body{margin:0;max-width:100%;min-width:0}
+main,section,header,footer,.hero-inner,.experience-grid,.experience-card,.studio-print,.service-intro,.service-gallery,.service-actions{min-width:0;max-width:100%}
+.studio-home .hero{height:auto;min-height:100svh;grid-template-rows:auto auto auto;overflow:hidden}
+.studio-home .hero-inner{width:100%;padding-inline:clamp(14px,5vw,22px)}
+.studio-home #hero-heading{font-size:clamp(32px,10vw,58px);overflow-wrap:normal}
+.film-sculpture{--film-size:min(76vw,340px);max-width:100%;margin-block:8px}
+.studio-home .experience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.studio-home .studio-caption{white-space:normal;overflow-wrap:anywhere}
+.service-studio .service-feature{grid-template-columns:minmax(0,1fr);padding-inline:clamp(14px,5vw,22px)}
+.service-studio .service-stage{--orbit-radius:clamp(65px,22vw,110px);--frame-width:clamp(100px,40vw,180px);overflow:hidden}
+.service-studio .service-gallery{overflow:hidden}
+.studio-masthead,.studio-footer,.site-footer{flex-wrap:wrap}
+.service-actions a{max-width:100%;white-space:normal}
+}
+@media(max-width:360px){.studio-home .experience-grid{grid-template-columns:minmax(0,1fr)}.studio-home .experience-photo{grid-column:auto}}
